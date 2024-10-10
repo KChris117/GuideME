@@ -1,0 +1,5 @@
+{
+  "title": "Demostración de Flutter",
+  "greeting": "¡Hola!",
+  "changeLanguage": "Cambiar idioma"
+}
