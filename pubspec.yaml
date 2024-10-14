@@ -56,13 +56,27 @@ flutter:
   uses-material-design: true
 
 assets:
+    - background/bg1.gif
+    - event/batam10k.jpeg
+    - event/batamrun.jpg
+    - languages/eng.png
+    - languages/idn.png
+    - languages/spn.png
     - pictures/intro.jpg
-    - place_pictures/makam_abdul_jamal.jpg
-    - place_pictures/miniatur_house.jpeg
-    - place_pictures/gpib_immanuel.jpg
-    - place_pictures/dino_gate.jpeg
     - place_pictures/ayam_bakar_de_peri.png
+    - place_pictures/dino_gate.jpeg
     - place_pictures/gereja_pulau_galang.jpeg
+    - place_pictures/gpib_immanuel.jpg
+    - place_pictures/makam_abdul_jamal.jpg
+    - place_pictures/mega_mall_batam.jpg
+    - place_pictures/miniatur_house.jpeg
+    - place_pictures/palm_spring_golf.jpg
+    - place_pictures/rumah_limas_potong.jpeg
+    - profiles/profile/jpg
+    - tickets/camp_vietnam.jpg
+    - tickets/melur.jpg
+    - tickets/ocarina.jpg
+    - tickets/raviola.jpeg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -106,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             ListTile(
               leading: const Icon(Icons.auto_awesome_motion),
-              title: const Text('TicketPage'),
+              title: const Text('Ticket'),
               onTap: () {
                 Navigator.pushReplacementNamed(context, '/ticket');
               },

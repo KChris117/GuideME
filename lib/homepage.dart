@@ -3,7 +3,12 @@ import 'detail_1page.dart';
 import 'detail_2page.dart';
 import 'transaction_detail_1page.dart';
 import 'transaction_detail_2page.dart';
-import 'see_more.dart';
+import 'transaction_eventdetail_1page.dart';
+import 'transaction_eventdetail_2page.dart';
+import 'view_all.dart';
+import 'event_view_all.dart';
+import 'event_detail1.dart';
+import 'event_detail2.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -186,17 +191,16 @@ class _MyHomePageState extends State<MyHomePage> {
               
               const SizedBox(height: 10), // Space between rows
 
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'For You',
+                    'Destinations',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
                       ),
                     ),
                     MouseRegion(
@@ -207,12 +211,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const SeeMore(), // Route to the see_all.dart page
+                              builder: (context) => const DestinationsViewAll(), // Route to the see_all.dart page
                             ),
                           );
                         },
                         child: const Text(
-                          'See More',
+                          'View All',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -233,50 +237,81 @@ class _MyHomePageState extends State<MyHomePage> {
                   Expanded(child: _buildPlaceCard(
                     'Makam Tumenggung Abdul Jamal', 
                     'Batam Center, Indonesia', 
-                    'place_pictures/makam_abdul_jamal.jpg'
+                    'place_pictures/makam_abdul_jamal.jpg',
+                    'Rp 50.000',
+                    4.8 // 5-star rating
+                     // Add the price here
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
                     'Taman Miniature House Indonesia', 
                     'Batam Center, Indonesia', 
-                    'place_pictures/miniatur_house.jpeg'
+                    'place_pictures/miniatur_house.jpeg',
+                    'Rp 200.000', // Add the price here\
+                    4.3 // 5-star rating
                   )),
                 ],
               ),
-            
-            const SizedBox(height: 40),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Gereja GPIB Jemaat Immanuel', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/gpib_immanuel.jpg'
-                  )),
-                  const SizedBox(width: 10),
-                  Expanded(child: _buildPlaceCard(
-                    'Taman Kreasi Dino\'s Gate Indonesia', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/dino_gate.jpeg'
-                  )),
-                ],
-              ),
               const SizedBox(height: 40),
 
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
+                child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Event',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click, // Change cursor to finger pointer
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigate to see_all.dart page when "See More" is clicked
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EventViewAll(), // Route to the see_all.dart page
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'View All',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black, // Text color
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 10), // Space between rows
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Restoran Ayam Bakar De Peri', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/ayam_bakar_de_peri.png'
+                    'Batam RUN Neo Ocarina', 
+                    'Bengkong, Indonesia', 
+                    'event/batamrun.jpg',
+                    'Rp 10.000', // Add the price here
+                    4.5 // 5-star rating
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
-                    'Immaculate Conception Mary Church, Pulau Galang', 
+                    'Batam 10K Engku Putri', 
                     'Batam Center, Indonesia', 
-                    'place_pictures/gereja_pulau_galang.jpeg'
+                    'event/batam10k.jpeg',
+                    'Rp 5.000', // Add the price here
+                    4.0 // 5-star rating
                   )),
                 ],
               ),
@@ -350,8 +385,28 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+/// Helper function to build one star with rating number
+Widget _buildStarsWithRating(double rating) {
+  return Row(
+    children: [
+      // Display the rating number (e.g., 4.5, 5.0)
+      Text(
+        rating.toStringAsFixed(1), // Format rating to 1 decimal
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Colors.black, // Rating text color
+        ),
+      ),
+      const SizedBox(width: 4), // Add some space between number and the star
+      // Display only one black star
+      const Icon(Icons.star, color: Colors.black, size: 15),
+    ],
+  );
+}
+
   // Helper method to build place cards
-Widget _buildPlaceCard(String title, String description, String imagePath) {
+Widget _buildPlaceCard(String title, String description, String imagePath, String price, double rating) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start, // Align column contents to the left
     children: [
@@ -370,14 +425,23 @@ Widget _buildPlaceCard(String title, String description, String imagePath) {
               ),
             ),
             const SizedBox(height: 8),
-            // Align the title text to the left
-            Text(
-              title,
-              textAlign: TextAlign.left, // Align text to the left
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+            // Align the title text to the left and show stars next to it
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                // Star rating with rating number next to the title
+                _buildStarsWithRating(rating),
+              ],
             ),
             const SizedBox(height: 8),
             // Add description text below the title and above the stars
@@ -385,7 +449,7 @@ Widget _buildPlaceCard(String title, String description, String imagePath) {
               description,
               textAlign: TextAlign.left, // Align text to the left
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -405,40 +469,49 @@ Widget _buildPlaceCard(String title, String description, String imagePath) {
           ],
         ),
       ),
-      
 
       const SizedBox(height: 15),
 
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // MouseRegion for 'Detail' button with finger pointer cursor
-      MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {
-            if (title == 'Makam Tumenggung Abdul Jamal') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
-              );
-            } else if (title == 'Miniature House Indonesia') {
-          Navigator.push(
-            context,
-          MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
-        );
-      }
-    },
-        child: const Center(
-          child: Text(
-            'Free',
-            style: TextStyle(
-              color: Colors.grey, // Warna teks
-              fontSize: 12, // Ukuran teks
-            ),
-          ),
-        ),
-
+          // MouseRegion for 'Price' with finger pointer cursor
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                // Navigate based on price and title
+                if (price == 'Rp 50.000' && title == 'Makam Tumenggung Abdul Jamal') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
+                  );
+                } else if (price == 'Rp 200.000' && title == 'Taman Miniature House Indonesia') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
+                  );
+                } else if (price == 'Rp 10.000' && title == 'Batam RUN Neo Ocarina') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionEventDetail1Page()),
+                  );
+                } else if (price == 'Rp 5.000' && title == 'Batam 10K Engku Putri') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionEventDetail2Page()),
+                  );
+                }
+              },
+              child: Center(
+                child: Text(
+                  price, // Only price will be clickable
+                  style: const TextStyle(
+                    color: Colors.grey, // Text color
+                    fontSize: 12, // Text size
+                  ),
+                ),
+              ),
             ),
           ),
 
@@ -458,6 +531,17 @@ Widget _buildPlaceCard(String title, String description, String imagePath) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Detail2Page()),
+                  );
+                }
+                if (title == 'Batam RUN Neo Ocarina') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Event1Page()),
+                  );
+                } else if (title == 'Batam 10K Engku Putri') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Event2Page()),
                   );
                 }
               },
@@ -485,6 +569,6 @@ Widget _buildPlaceCard(String title, String description, String imagePath) {
         ],
       ),
     ],
-  );
+);
 }
 }

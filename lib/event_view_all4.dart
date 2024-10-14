@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'see_more.dart';
-import 'see_more2.dart';
-import 'see_more3.dart';
+import 'event_view_all.dart';
+import 'event_view_all2.dart';
+import 'event_view_all3.dart';
 
-class SeeMore4 extends StatefulWidget {
-  const SeeMore4({super.key});
+class EventViewAll4 extends StatefulWidget {
+  const EventViewAll4({super.key});
 
   @override
-  State<SeeMore4> createState() => _SeeMore4State();
+  State<EventViewAll4> createState() => _EventViewAll4State();
 }
 
-class _SeeMore4State extends State<SeeMore4> {
+class _EventViewAll4State extends State<EventViewAll4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +69,7 @@ class _SeeMore4State extends State<SeeMore4> {
                 ),
               ),
               Text(
-                'Some Destination Recommendations For You',
+                'Some Event Recommendations For You',
                 style: GoogleFonts.inter(
                   fontSize: 20,
                   fontWeight: FontWeight.w900,
@@ -93,7 +93,7 @@ class _SeeMore4State extends State<SeeMore4> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SeeMore3()), // Navigate to page 1
+                            MaterialPageRoute(builder: (context) => const EventViewAll2()), // Navigate to page 1
                           );
                         },
                         child: const Icon(
@@ -113,22 +113,22 @@ class _SeeMore4State extends State<SeeMore4> {
                             if (i == 1) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll()),
                               );
                             } else if (i == 2) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore2()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll2()),
                               );
                             } else if (i == 3) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore3()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll3()),
                               );
                             } else if (i == 4) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore4()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll4()),
                               );
                             }
                           },
@@ -136,14 +136,14 @@ class _SeeMore4State extends State<SeeMore4> {
                             padding: const EdgeInsets.all(8.0),
                             margin: const EdgeInsets.symmetric(horizontal: 4.0),
                             decoration: BoxDecoration(
-                              color: i == 4 ? Colors.black : Colors.white, // Highlight current page
+                              color: i == 2 ? Colors.black : Colors.white, // Highlight current page
                               borderRadius: BorderRadius.circular(5.0),
                               border: Border.all(color: Colors.black),
                             ),
                             child: Text(
                               '$i',
                               style: TextStyle(
-                                color: i == 4 ? Colors.white : Colors.black,
+                                color: i == 2 ? Colors.white : Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -160,7 +160,7 @@ class _SeeMore4State extends State<SeeMore4> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SeeMore4()), // Navigate to page 3
+                            MaterialPageRoute(builder: (context) => const EventViewAll4()), // Navigate to page 3
                           );
                         },
                         child: const Icon(

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'see_more.dart'; // Import the other pagination pages
-import 'see_more2.dart';
-import 'see_more4.dart';
+import 'view_all.dart'; // Import the other pagination pages
+import 'view_all3.dart';
+import 'view_all4.dart';
 
-class SeeMore3 extends StatefulWidget {
-  const SeeMore3({super.key});
+class DestinationsViewAll2 extends StatefulWidget {
+  const DestinationsViewAll2({super.key});
 
   @override
-  State<SeeMore3> createState() => _SeeMore3State();
+  State<DestinationsViewAll2> createState() => _DestinationsViewAll2State();
 }
 
-class _SeeMore3State extends State<SeeMore3> {
+class _DestinationsViewAll2State extends State<DestinationsViewAll2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +93,7 @@ class _SeeMore3State extends State<SeeMore3> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SeeMore2()), // Navigate to page 1
+                            MaterialPageRoute(builder: (context) => const DestinationsViewAll()), // Navigate to page 1
                           );
                         },
                         child: const Icon(
@@ -113,22 +113,22 @@ class _SeeMore3State extends State<SeeMore3> {
                             if (i == 1) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore()),
+                                MaterialPageRoute(builder: (context) => const DestinationsViewAll()),
                               );
                             } else if (i == 2) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore2()),
+                                MaterialPageRoute(builder: (context) => const DestinationsViewAll2()),
                               );
                             } else if (i == 3) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore3()),
+                                MaterialPageRoute(builder: (context) => const DestinationsViewAll3()),
                               );
                             } else if (i == 4) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore4()),
+                                MaterialPageRoute(builder: (context) => const DestinationsViewAll4()),
                               );
                             }
                           },
@@ -136,14 +136,14 @@ class _SeeMore3State extends State<SeeMore3> {
                             padding: const EdgeInsets.all(8.0),
                             margin: const EdgeInsets.symmetric(horizontal: 4.0),
                             decoration: BoxDecoration(
-                              color: i == 3 ? Colors.black : Colors.white, // Highlight current page
+                              color: i == 2 ? Colors.black : Colors.white, // Highlight current page
                               borderRadius: BorderRadius.circular(5.0),
                               border: Border.all(color: Colors.black),
                             ),
                             child: Text(
                               '$i',
                               style: TextStyle(
-                                color: i == 3 ? Colors.white : Colors.black,
+                                color: i == 2 ? Colors.white : Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -160,7 +160,7 @@ class _SeeMore3State extends State<SeeMore3> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SeeMore4()), // Navigate to page 3
+                            MaterialPageRoute(builder: (context) => const DestinationsViewAll3()), // Navigate to page 3
                           );
                         },
                         child: const Icon(

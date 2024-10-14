@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'detail_1page.dart';
-import 'detail_2page.dart';
 import 'transaction_detail_1page.dart';
 import 'transaction_detail_2page.dart';
-import 'see_more2.dart';
-import 'see_more3.dart';
-import 'see_more4.dart';
+import 'event_view_all2.dart';
+import 'event_view_all3.dart';
+import 'event_view_all4.dart';
+import 'event_detail1.dart';
+import 'event_detail2.dart';
 
-class SeeMore extends StatefulWidget {
-  const SeeMore({super.key});
+class EventViewAll extends StatefulWidget {
+  const EventViewAll({super.key});
 
   @override
-  State<SeeMore> createState() => _SeeMoreState();
+  State<EventViewAll> createState() => _EventViewAllState();
 }
 
-class _SeeMoreState extends State<SeeMore> {
+class _EventViewAllState extends State<EventViewAll> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +74,7 @@ class _SeeMoreState extends State<SeeMore> {
                 ),
               ),
               Text(
-                'Some Destination Recommendations For You',
+                'Some Event Recommendations For You',
                 style: GoogleFonts.inter(
                   fontSize: 20,
                   fontWeight: FontWeight.w900,
@@ -209,60 +209,38 @@ class _SeeMoreState extends State<SeeMore> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Makam Tumenggung Abdul Jamal', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/makam_abdul_jamal.jpg'
+                    'Batam RUN, Neo Ocarina', 
+                    'Bengkong, Indonesia', 
+                    'event/batamrun.jpg'
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
-                    'Taman Miniature House Indonesia', 
+                    'Batam 10K. Engku Putri', 
                     'Batam Center, Indonesia', 
-                    'place_pictures/miniatur_house.jpeg'
+                    'event/batam10k.jpeg'
                   )),
                 ],
               ),        
             
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Gereja GPIB Jemaat Immanuel', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/gpib_immanuel.jpg'
+                    'Batam RUN, Neo Ocarina', 
+                    'Bengkong, Indonesia', 
+                    'event/batamrun.jpg'
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
-                    'Taman Kreasi Dino\' Gate Indonesia', 
+                    'Batam 10K. Engku Putri', 
                     'Batam Center, Indonesia', 
-                    'place_pictures/dino_gate.jpeg'
+                    'event/batam10k.jpeg'
                   )),
                 ],
-              ),
-
-              const SizedBox(height: 40),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Restoran Ayam Bakar De Peri', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/ayam_bakar_de_peri.png'
-                  )),
-                  const SizedBox(width: 10),
-                  Expanded(child: _buildPlaceCard(
-                    'Immaculate Conception Mary Church, Pulau Galang', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/gereja_pulau_galang.jpeg'
-                  )),
-                ],
-              ),
-
-              // Add your destinations here for page 2 similar to page 1
-              // You can add different places or replicate the structure with different data.
-
+              ),        
+            
               const SizedBox(height: 40),
 
               // Pagination Section (reuse the logic from see_more.dart)
@@ -276,7 +254,7 @@ class _SeeMoreState extends State<SeeMore> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SeeMore()), // Navigate to page 1
+                            MaterialPageRoute(builder: (context) => const EventViewAll()), // Navigate to page 1
                           );
                         },
                         child: const Icon(
@@ -296,22 +274,22 @@ class _SeeMoreState extends State<SeeMore> {
                             if (i == 1) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll()),
                               );
                             } else if (i == 2) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore2()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll2()),
                               );
                             } else if (i == 3) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore3()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll3()),
                               );
                             } else if (i == 4) {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SeeMore4()),
+                                MaterialPageRoute(builder: (context) => const EventViewAll4()),
                               );
                             }
                           },
@@ -343,7 +321,7 @@ class _SeeMoreState extends State<SeeMore> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SeeMore2()), // Navigate to page 3
+                            MaterialPageRoute(builder: (context) => const EventViewAll2()), // Navigate to page 3
                           );
                         },
                         child: const Icon(
@@ -463,15 +441,15 @@ class _SeeMoreState extends State<SeeMore> {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                if (title == 'Makam Tumenggung Abdul Jamal') {
+                if (title == 'Batam RUN, Neo Ocarina') {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Detail1Page()),
+                    MaterialPageRoute(builder: (context) => const Event1Page()),
                   );
-                } else if (title == 'Miniature House Indonesia') {
+                } else if (title == 'Batam 10K. Engku Putri') {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Detail2Page()),
+                    MaterialPageRoute(builder: (context) => const Event2Page()),
                   );
                 }
               },

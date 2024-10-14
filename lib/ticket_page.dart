@@ -1,9 +1,5 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'detail_1page.dart';
-import 'detail_2page.dart';
-import 'transaction_detail_1page.dart';
-import 'transaction_detail_2page.dart';
 import 'ticket_detail.dart';
 import 'ticket_detail2.dart';
 import 'ticket_detail3.dart';
@@ -83,9 +79,9 @@ class _TicketPageState extends State<TicketPage> {
             ),
             ListTile(
               leading: const Icon(Icons.auto_awesome_motion),
-              title: const Text('Event'),
+              title: const Text('Ticket'),
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/event');
+                Navigator.pushReplacementNamed(context, '/ticket');
               },
             ),
             ListTile(
@@ -257,59 +253,7 @@ class _TicketPageState extends State<TicketPage> {
                   ),
                 ),
               ],
-            ),
-
-              const SizedBox(height: 20),
-              Stack(
-                children: [
-                  Positioned.fill(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
-                      child: ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          Colors.grey.withOpacity(1), // Adjust the opacity to make the image darker
-                          BlendMode.multiply,
-                          ),
-                      child: Image.asset(
-                        'pictures/intro.jpg',
-                        width: double.infinity,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(70.0),
-                      child: const Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Welcome to GuideMe',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Batam Navigation',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 10),
+            ),              
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
@@ -317,125 +261,88 @@ class _TicketPageState extends State<TicketPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Ticket',
+                    'Tickets',
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                          // Arahkan ke halaman lain saat "View All" ditekan
-                          Navigator.pushReplacementNamed(context, '/yourPageRoute');
-                        },
-                        child: const Text(
-                          'View All',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black, // Warna teks "See More"
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-
-                Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Makam Tumenggung Abdul Jamal', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/makam_abdul_jamal.jpg'
-                  )),
-                  const SizedBox(width: 10),
-                  Expanded(child: _buildPlaceCard(
-                    'Taman Miniature House Indonesia', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/miniatur_house.jpeg'
-                  )),
-                ],
               ),
-              
-              const SizedBox(height: 40),
-
-              _buildFamilyBundleBox(
-              checkIcon: Icons.check_circle, // Use the built-in icon
-              bundleText: 'Family Bundle',
-              ticketCount: '4 tickets',
-              description: 'For every beach',
-              price: 'Rp 70.000',
-            ),
             
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
-                  Expanded(
-                    child: _buildNavigationBox(
-                      'Pantai Raviola',
-                      'Galang baru, Batam, Indonesia',
-                      'Rp 20.000',
-                      'tickets/raviola.jpeg', // Ensure this image exists
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TicketDetail1Page()),
-                        );
-                      },
-                    ),
+                  _buildNavigationBox(
+                    'Pantai Raviola',
+                    'Organized by Batam Tourist',
+                    'tickets/raviola.jpeg',
+                    '4.4',
+                    'Unlimited',
+                    'Galang Baru, Kota Batam, Indonesia',
+                    '24 Jam',
+                    'Starts from',
+                    'Rp 20.000',
+                    onPurchase: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TicketDetail1Page()),
+                      );
+                    },
                   ),
-                  const SizedBox(width: 10), // Space between boxes
-                  Expanded(
-                    child: _buildNavigationBox(
-                      'Pantai Melur',
-                      'Galang baru, Batam, Indonesia',
-                      'Rp 10.000',
-                      'tickets/melur.jpg', // Ensure this image exists
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TicketDetail2Page()),
-                        );
-                      },
-                    ),
+                  const SizedBox(height: 20), // Space between boxes
+                  _buildNavigationBox(
+                    'Pantai Melur',
+                    'Organized by Batam Tourista',
+                    'tickets/melur.jpg',
+                    '4.5',
+                    'Unlimited',
+                    'Galang Baru, Kota Batam, Indonesia',
+                    '24 Jam',
+                    'Starts from',
+                    'Rp 10.000',
+                    onPurchase: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TicketDetail2Page()),
+                      );
+                    },
                   ),
-                ],
-              ),
-              const SizedBox(height: 20), // Space between rows
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: _buildNavigationBox(
-                      'Ocarina',
-                      'Bengkong, Batam, Indonesia',
-                      'Rp 50.000',
-                      'tickets/ocarina.jpg', // Ensure this image exists
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TicketDetail3Page()),
-                        );
-                      },
-                    ),
+                  const SizedBox(height: 20), // Space between boxes
+                  _buildNavigationBox(
+                    'Ocarina',
+                    'Organized by Batam Tourist',
+                    'tickets/ocarina.jpg',
+                    '4.2',
+                    'Unlimited',
+                    'Bengkong, Kota Batam, Indonesia',
+                    '08.00 am - 22.00 pm',
+                    'Starts from',
+                    'Rp 50.000',
+                    onPurchase: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TicketDetail3Page()),
+                      );
+                    },
                   ),
-                  const SizedBox(width: 10), // Space between boxes
-                  Expanded(
-                    child: _buildNavigationBox(
-                      'Camp Vietnam',
-                      'Galang baru, Batam, Indonesia',
-                      'Rp 70.000',
-                      'tickets/camp_vietnam.jpg', // Ensure this image exists
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TicketDetail4Page()),
-                        );
-                      },
-                    ),
+                  const SizedBox(height: 20), // Space between boxes
+                  _buildNavigationBox(
+                    'Camp Vietnam',
+                    'Organized by Batam Tourist',
+                    'tickets/camp_vietnam.jpg',
+                    '4.3',
+                    'Unlimited',
+                    'Galang Baru, Kota Batam, Indonesia',
+                    '07.30 am - 20.00 pm',
+                    'Starts from',
+                    'Rp 70.000',
+                    onPurchase: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TicketDetail4Page()),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -477,7 +384,7 @@ class _TicketPageState extends State<TicketPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.auto_awesome_motion),
-            label: 'Event',
+            label: 'Ticket',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -500,8 +407,18 @@ class _TicketPageState extends State<TicketPage> {
     );
   }
 
-  Widget _buildNavigationBox(String title, String description, String prize, String imagePath, VoidCallback onTap, 
+  Widget _buildNavigationBox(
+    String title, 
+    String organized, 
+    String imagePath, 
+    String rating, 
+    String calendar, 
+    String location, 
+    String time, 
+    String startsfrom, 
+    String prize,
     {
+    required VoidCallback onPurchase,
     double imagePaddingTop = 20.0, 
     double imagePaddingBottom = 20.0, 
     double imagePaddingLeft = 20.0, 
@@ -509,307 +426,206 @@ class _TicketPageState extends State<TicketPage> {
     }) {
   return MouseRegion(
     cursor: SystemMouseCursors.click, // Change cursor to finger on hover
-  child: GestureDetector(
-    onTap: onTap,
-    child: Container(
-      decoration: BoxDecoration(
-        color: Colors.white, // Box color
-        border: Border.all(color: Colors.black), // Black stroke
-        borderRadius: BorderRadius.circular(15.0), // Rounded corners
-      ),
-      child: Row(
-        children: [
-          // Image on the left with adjustable padding
-          Padding(
-            padding: EdgeInsets.only(
-              top: imagePaddingTop,
-              bottom: imagePaddingBottom,
-              left: imagePaddingLeft,
-              right: imagePaddingRight, // Right padding for spacing from text
+    child: GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white, // Box color
+          borderRadius: BorderRadius.circular(15.0), // Rounded corners
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // Shadow color
+              spreadRadius: 1, // Spread radius of the shadow
+              blurRadius: 5, // Blur radius of the shadow
+              offset: const Offset(0, 3), // Offset of the shadow
             ),
-            child: ClipRRect(
-              child: Image.asset(
-                imagePath,
-                width: 58, // Set width of the image
-                height: 60, // Set height of the image
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          // Text on the right
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(2.2), // Padding for the text
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
-              children: [
-
-                  Text(
-                title,
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-
-              Text(
-                description,
-                style: GoogleFonts.inter(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-
-              Text(
-                prize,
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                ),
-              ),
-
-            ]
-          ),
-
-            ),
-          ),
-        ],
-      ),
-    ),
-  ),
-);
-}
-
-Widget _buildFamilyBundleBox({
-  required IconData checkIcon, // Icon for the check logo  required String bundleText, // Text in the middle (e.g., "Family Bundle")
-  required String bundleText, // Text in the middle (e.g., "Family Bundle")
-  required String ticketCount, // Text inside the rounded box (e.g., "4 tickets")
-  required String description, // Description below the rounded box (e.g., "For every beach")
-  required String price, // Price text on the right side (e.g., "Rp 70.000")
-  double iconSize = 40.0, // Adjustable size for the check icon
-  double bundleTextSize = 16.0, // Adjustable font size for "Family Bundle"
-  double ticketTextSize = 12.0, // Adjustable font size for "4 tickets"
-  double descriptionTextSize = 10.0, // Adjustable font size for the description
-  double priceTextSize = 14.0, // Adjustable font size for the price
-}) {
-  return Container(
-    padding: const EdgeInsets.all(20.0),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Colors.black), // Black stroke
-      borderRadius: BorderRadius.circular(15.0), // Rounded corners
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // Check Icon on the left
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0), // Spacing between icon and text
-            child: Icon(
-              checkIcon, // Use the passed check icon
-              size: iconSize, // Adjustable size for the check icon
-              color: Colors.black, // Icon color
-            ),
-          ),
-        
-        // Middle: Family Bundle text, 4 tickets box, and description
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                bundleText,
-                style: TextStyle(
-                  fontSize: bundleTextSize, // Adjustable "Family Bundle" size
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 4),
-              // Rounded box containing the ticket count
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(20.0), // Rounded box
-                ),
-                child: Text(
-                  ticketCount,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: ticketTextSize, // Adjustable "4 tickets" text size
-                  ),
-                ),
-              ),
-              const SizedBox(height: 4),
-              // "For every beach" description
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: descriptionTextSize, // Adjustable description text size
-                  color: Colors.grey, // Grey color for the text
-                ),
-              ),
-              
-            ],
-          ),
+          ],
         ),
-
-        // Right: Price
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Text(
-            price,
-            style: TextStyle(
-              fontSize: priceTextSize, // Adjustable price text size
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-
-  Widget _buildPlaceCard(String title, String description, String imagePath) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start, // Align column contents to the left
-    children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(15.0), // Rounded corners for the white box
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Align column contents to the left
+        child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                imagePath,
-                width: double.infinity,
-                height: 150,
-                fit: BoxFit.cover,
+            // Image on the left with adjustable padding
+            Padding(
+              padding: EdgeInsets.only(
+                top: imagePaddingTop,
+                bottom: imagePaddingBottom,
+                left: imagePaddingLeft,
+                right: imagePaddingRight, // Right padding for spacing from text
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image.asset(
+                  imagePath,
+                  width: 160, // Set width of the image
+                  height: 170, // Set height of the image
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const SizedBox(height: 8),
-            // Align the title text to the left
-            Text(
-              title,
-              textAlign: TextAlign.left, // Align text to the left
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+            // Text on the right
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(2.2), // Padding for the text
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                  children: [
+                    Text(
+                      title,
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star, // Black star icon
+                          color: Colors.black,
+                          size: 16, // Adjust the size of the star
+                        ),
+                        Text(
+                          rating, // Display the rating value
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Organized by ', // Regular part
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          TextSpan(
+                            text: organized.split('by ').last, // Bold part
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold, // Bold font for organizer
+                              color: Colors.black, // You can adjust the color as needed
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    // Row for calendar icon and text
+                    Row(
+                      children: [
+                        // Calendar icon and text
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.calendar_today, // Calendar icon
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              calendar, // Calendar text
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 10), // Space between calendar and location
+                        // Location icon and text
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on, // Location icon
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                            Text(
+                              location, // Location text
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 3),
+                    // Row for clock icon and text
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.access_time, // Clock icon
+                          size: 16,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 2),
+                        Text(
+                          time, // Time text
+                          style: GoogleFonts.inter(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      startsfrom,
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start, // Space between the text and button
+                      children: [
+                        Text(
+                          prize,
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(width: 90), // Spacing between the text and button
+                        // Purchase Button
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click, // Change cursor to pointer on hover
+                          child: GestureDetector(
+                            onTap: onPurchase, // Use the provided onPurchase function
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0), // Padding inside the button
+                              decoration: BoxDecoration(
+                                color: Colors.black, // Button background color
+                                borderRadius: BorderRadius.circular(10.0), // Rounded corners
+                              ),
+                              child: const Text(
+                                'Purchase',
+                                style: TextStyle(
+                                  color: Colors.white, // Text color
+                                  fontSize: 14, // Text size
+                                  fontWeight: FontWeight.bold, // Text weight
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            // Add description text below the title and above the stars
-            Text(
-              description,
-              textAlign: TextAlign.left, // Align text to the left
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(height: 2),
-            // Stars row aligned to the left
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 1
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 2
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 3
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 4
-                Icon(Icons.star_half, color: Colors.yellow[700], size: 15), // Half-star for 4.5 rating
-                const SizedBox(width: 0.1),
-              ],
             ),
           ],
         ),
       ),
-      
-
-      const SizedBox(height: 15),
-
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // MouseRegion for 'Detail' button with finger pointer cursor
-      MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {
-            if (title == 'Makam Tumenggung Abdul Jamal') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
-              );
-            } else if (title == 'Miniature House Indonesia') {
-          Navigator.push(
-            context,
-          MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
-        );
-      }
-    },
-        child: const Center(
-          child: Text(
-            'Free',
-            style: TextStyle(
-              color: Colors.grey, // Warna teks
-              fontSize: 12, // Ukuran teks
-            ),
-          ),
-        ),
-
-            ),
-          ),
-
-          const SizedBox(height: 8),
-
-          // MouseRegion for 'Transaction Detail' button with finger pointer cursor
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                if (title == 'Makam Tumenggung Abdul Jamal') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Detail1Page()),
-                  );
-                } else if (title == 'Miniature House Indonesia') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Detail2Page()),
-                  );
-                }
-              },
-              child: Container(
-                width: 50,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                child: const Center(
-                  child: Text(
-                    'View',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
-                  ),
-                  
-
-               ),
-              ),
-            ),
-          ),
-
-        ],
-      ),
-
-      
-    ],
+    ),
   );
 }
 }
