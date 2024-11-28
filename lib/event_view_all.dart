@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'transaction_detail_1page.dart';
-import 'transaction_detail_2page.dart';
+
+import 'transaction_eventdetail_1page.dart';
+import 'transaction_eventdetail_2page.dart';
 import 'event_view_all2.dart';
 import 'event_view_all3.dart';
 import 'event_view_all4.dart';
@@ -82,126 +83,119 @@ class _EventViewAllState extends State<EventViewAll> {
               ),
 
               const SizedBox(height: 10),
-
               // Filter Box
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start, // Align the buttons to the start (left)
-                children: [
-                  // Existing Filter Button
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Navigate to the filter page here
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                        child: const Icon(Icons.filter_list, color: Colors.white, size: 20), // Centered filter icon
-                      ),
-                    ),
-                  ),
-
-                  // SizedBox to add custom spacing between the buttons
-                  const SizedBox(width: 10), // Adjust the width as per your requirement
-
-                  // New Box Button (Right side of the Filter button)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Define the action for the new button here
-                        // For example: Navigator.push(context, MaterialPageRoute(builder: (context) => NewPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                       child: const Text(
-                        'Beach', // The text inside the button
-                        style: TextStyle(
-                          color: Colors.black, // Text color
-                          fontSize: 14, // Text size
-                          fontWeight: FontWeight.bold, // Text weight
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Filter Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigate to the filter page here
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage()));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Icon(Icons.filter_list, color: Colors.white, size: 20),
                         ),
                       ),
                     ),
-                  ),
+                    const SizedBox(width: 10),
+
+                    // Beach Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Beach button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Beach',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+
+                    // Natural Attractions Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Natural Attractions button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Natural Attractions',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+
+                    // Historical Sites Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Historical Sites button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Historical Sites',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-
-                // SizedBox to add custom spacing between the buttons
-                  const SizedBox(width: 10), // Adjust the width as per your requirement
-
-                  // New Box Button (Right side of the Filter button)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Define the action for the new button here
-                        // For example: Navigator.push(context, MaterialPageRoute(builder: (context) => NewPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                       child: const Text(
-                        'Natural Atractions', // The text inside the button
-                        style: TextStyle(
-                          color: Colors.black, // Text color
-                          fontSize: 14, // Text size
-                          fontWeight: FontWeight.bold, // Text weight
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // SizedBox to add custom spacing between the buttons
-                  const SizedBox(width: 10), // Adjust the width as per your requirement
-
-                  // New Box Button (Right side of the Filter button)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Define the action for the new button here
-                        // For example: Navigator.push(context, MaterialPageRoute(builder: (context) => NewPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                       child: const Text(
-                        'Historical Sites', // The text inside the button
-                        style: TextStyle(
-                          color: Colors.black, // Text color
-                          fontSize: 14, // Text size
-                          fontWeight: FontWeight.bold, // Text weight
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
 
               const SizedBox(height: 20),
 
@@ -209,34 +203,121 @@ class _EventViewAllState extends State<EventViewAll> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Batam RUN, Neo Ocarina', 
+                    'Batam RUN Neo Ocarina', 
                     'Bengkong, Indonesia', 
-                    'event/batamrun.jpg'
+                    'assets/event/batamrun.jpg',
+                    'Rp 10.000', // Add the price here
+                    4.5 // 5-star rating
                   )),
+
                   const SizedBox(width: 10),
+
                   Expanded(child: _buildPlaceCard(
-                    'Batam 10K. Engku Putri', 
+                    'Batam 10K Engku Putri', 
                     'Batam Center, Indonesia', 
-                    'event/batam10k.jpeg'
+                    'assets/event/batam10k.jpeg',
+                    'Rp 5.000', // Add the price here
+                    4.0 // 5-star rating
                   )),
                 ],
               ),        
             
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Batam RUN, Neo Ocarina', 
+                    'Batam RUN Neo Ocarina', 
                     'Bengkong, Indonesia', 
-                    'event/batamrun.jpg'
+                    'assets/event/batamrun.jpg',
+                    'Rp 10.000', // Add the price here
+                    4.5 // 5-star rating
                   )),
+
                   const SizedBox(width: 10),
+
                   Expanded(child: _buildPlaceCard(
-                    'Batam 10K. Engku Putri', 
+                    'Batam 10K Engku Putri', 
                     'Batam Center, Indonesia', 
-                    'event/batam10k.jpeg'
+                    'assets/event/batam10k.jpeg',
+                    'Rp 5.000', // Add the price here
+                    4.0 // 5-star rating
+                  )),
+                ],
+              ),        
+            
+              const SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: _buildPlaceCard(
+                    'Batam RUN Neo Ocarina', 
+                    'Bengkong, Indonesia', 
+                    'assets/event/batamrun.jpg',
+                    'Rp 10.000', // Add the price here
+                    4.5 // 5-star rating
+                  )),
+
+                  const SizedBox(width: 10),
+
+                  Expanded(child: _buildPlaceCard(
+                    'Batam 10K Engku Putri', 
+                    'Batam Center, Indonesia', 
+                    'assets/event/batam10k.jpeg',
+                    'Rp 5.000', // Add the price here
+                    4.0 // 5-star rating
+                  )),
+                ],
+              ),        
+            
+              const SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: _buildPlaceCard(
+                    'Batam RUN Neo Ocarina', 
+                    'Bengkong, Indonesia', 
+                    'assets/event/batamrun.jpg',
+                    'Rp 10.000', // Add the price here
+                    4.5 // 5-star rating
+                  )),
+
+                  const SizedBox(width: 10),
+
+                  Expanded(child: _buildPlaceCard(
+                    'Batam 10K Engku Putri', 
+                    'Batam Center, Indonesia', 
+                    'assets/event/batam10k.jpeg',
+                    'Rp 5.000', // Add the price here
+                    4.0 // 5-star rating
+                  )),
+                ],
+              ),        
+            
+              const SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: _buildPlaceCard(
+                    'Batam RUN Neo Ocarina', 
+                    'Bengkong, Indonesia', 
+                    'assets/event/batamrun.jpg',
+                    'Rp 10.000', // Add the price here
+                    4.5 // 5-star rating
+                  )),
+
+                  const SizedBox(width: 10),
+
+                  Expanded(child: _buildPlaceCard(
+                    'Batam 10K Engku Putri', 
+                    'Batam Center, Indonesia', 
+                    'assets/event/batam10k.jpeg',
+                    'Rp 5.000', // Add the price here
+                    4.0 // 5-star rating
                   )),
                 ],
               ),        
@@ -343,7 +424,27 @@ class _EventViewAllState extends State<EventViewAll> {
     );
   }
 
-  Widget _buildPlaceCard(String title, String description, String imagePath) {
+  Widget _buildStarsWithRating(double rating) {
+  return Row(
+    children: [
+      // Display the rating number (e.g., 4.5, 5.0)
+      Text(
+        rating.toStringAsFixed(1), // Format rating to 1 decimal
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Colors.black, // Rating text color
+        ),
+      ),
+      const SizedBox(width: 4), // Add some space between number and the star
+      // Display only one black star
+      const Icon(Icons.star, color: Colors.black, size: 15),
+    ],
+  );
+}
+
+  // Helper method to build place cards
+Widget _buildPlaceCard(String title, String description, String imagePath, String price, double rating) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start, // Align column contents to the left
     children: [
@@ -362,14 +463,23 @@ class _EventViewAllState extends State<EventViewAll> {
               ),
             ),
             const SizedBox(height: 8),
-            // Align the title text to the left
-            Text(
-              title,
-              textAlign: TextAlign.left, // Align text to the left
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+            // Align the title text to the left and show stars next to it
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                // Star rating with rating number next to the title
+                _buildStarsWithRating(rating),
+              ],
             ),
             const SizedBox(height: 8),
             // Add description text below the title and above the stars
@@ -377,60 +487,46 @@ class _EventViewAllState extends State<EventViewAll> {
               description,
               textAlign: TextAlign.left, // Align text to the left
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
-            ),
-            const SizedBox(height: 2),
-            // Stars row aligned to the left
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 1
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 2
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 3
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 4
-                Icon(Icons.star_half, color: Colors.yellow[700], size: 15), // Half-star for 4.5 rating
-                const SizedBox(width: 0.1),
-              ],
             ),
           ],
         ),
       ),
-      
 
       const SizedBox(height: 15),
 
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // MouseRegion for 'Detail' button with finger pointer cursor
-      MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {
-            if (title == 'Makam Tumenggung Abdul Jamal') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
-              );
-            } else if (title == 'Miniature House Indonesia') {
-          Navigator.push(
-            context,
-          MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
-        );
-      }
-    },
-        child: const Center(
-          child: Text(
-            'Free',
-            style: TextStyle(
-              color: Colors.grey, // Warna teks
-              fontSize: 12, // Ukuran teks
-            ),
-          ),
-        ),
-
+          // MouseRegion for 'Price' with finger pointer cursor
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                // Navigate based on price and title
+                if (price == 'Rp 10.000' && title == 'Batam RUN Neo Ocarina') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionEventDetail1Page()),
+                  );
+                } else if (price == 'Rp 5.000' && title == 'Batam 10K Engku Putri') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionEventDetail2Page()),
+                  );
+                }
+              },
+              child: Center(
+                child: Text(
+                  price, // Only price will be clickable
+                  style: const TextStyle(
+                    color: Colors.grey, // Text color
+                    fontSize: 12, // Text size
+                  ),
+                ),
+              ),
             ),
           ),
 
@@ -441,12 +537,12 @@ class _EventViewAllState extends State<EventViewAll> {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                if (title == 'Batam RUN, Neo Ocarina') {
+                if (title == 'Batam RUN Neo Ocarina') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Event1Page()),
                   );
-                } else if (title == 'Batam 10K. Engku Putri') {
+                } else if (title == 'Batam 10K Engku Putri') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Event2Page()),
@@ -473,10 +569,10 @@ class _EventViewAllState extends State<EventViewAll> {
               ),
             ),
           ),
-        
+
         ],
       ),
     ],
   );
-  }
+}
 }

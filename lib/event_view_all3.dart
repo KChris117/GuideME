@@ -136,14 +136,14 @@ class _EventViewAll3State extends State<EventViewAll3> {
                             padding: const EdgeInsets.all(8.0),
                             margin: const EdgeInsets.symmetric(horizontal: 4.0),
                             decoration: BoxDecoration(
-                              color: i == 2 ? Colors.black : Colors.white, // Highlight current page
+                              color: i == 3 ? Colors.black : Colors.white, // Highlight current page
                               borderRadius: BorderRadius.circular(5.0),
                               border: Border.all(color: Colors.black),
                             ),
                             child: Text(
                               '$i',
                               style: TextStyle(
-                                color: i == 2 ? Colors.white : Colors.black,
+                                color: i == 3 ? Colors.white : Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),

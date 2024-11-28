@@ -93,7 +93,7 @@ class _EventViewAll4State extends State<EventViewAll4> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const EventViewAll2()), // Navigate to page 1
+                            MaterialPageRoute(builder: (context) => const EventViewAll3()), // Navigate to page 1
                           );
                         },
                         child: const Icon(
@@ -136,14 +136,14 @@ class _EventViewAll4State extends State<EventViewAll4> {
                             padding: const EdgeInsets.all(8.0),
                             margin: const EdgeInsets.symmetric(horizontal: 4.0),
                             decoration: BoxDecoration(
-                              color: i == 2 ? Colors.black : Colors.white, // Highlight current page
+                              color: i == 4 ? Colors.black : Colors.white, // Highlight current page
                               borderRadius: BorderRadius.circular(5.0),
                               border: Border.all(color: Colors.black),
                             ),
                             child: Text(
                               '$i',
                               style: TextStyle(
-                                color: i == 2 ? Colors.white : Colors.black,
+                                color: i == 4 ? Colors.white : Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),

@@ -18,44 +18,69 @@ class _GalleryPageState extends State<GalleryPage> {
     // Add navigation logic or other actions here based on index
     switch (index) {
       case 0:
-        // Navigate to Home
         Navigator.pushReplacementNamed(context, '/');
         break;
       case 1:
-        // Navigate to Blog
         Navigator.pushReplacementNamed(context, '/ticket');
         break;
       case 2:
-        // Navigate to Search
         Navigator.pushReplacementNamed(context, '/search');
         break;
       case 3:
-        // Navigate to Gallery
         Navigator.pushReplacementNamed(context, '/gallery');
         break;
       case 4:
-        // Navigate to Profile
         Navigator.pushReplacementNamed(context, '/profile');
         break;
     }
   }
 
-@override
+  // Function to show the image in a full-screen modal
+  void _showImageModal(BuildContext context, String imagePath) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(10),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context); // Close the modal when tapped
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.black,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image.asset(
+                  imagePath, // Load full-size image
+                  fit: BoxFit.contain, // Ensure the image is properly scaled
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     const List<String> imagePaths = [
-      'place_pictures/makam_abdul_jamal.jpg',
-      'place_pictures/gpib_immanuel.jpg',
-      'tickets/camp_vietnam.jpg',
-      'place_pictures/makam_abdul_jamal/foto4.jpg',
-      'tickets/ocarina.jpg',
-      'place_pictures/makam_abdul_jamal/foto2.jpg',
-      'tickets/raviola.jpeg',
-      'place_pictures/ayam_bakar_de_peri.png',
-      'place_pictures/dino_gate.jpeg',
+      'assets/place_pictures/makam_abdul_jamal.jpg',
+      'assets/place_pictures/gpib_immanuel.jpg',
+      'assets/tickets/camp_vietnam.jpg',
+      'assets/place_pictures/makam_abdul_jamal/foto4.jpg',
+      'assets/tickets/ocarina.jpg',
+      'assets/place_pictures/makam_abdul_jamal/foto2.jpg',
+      'assets/tickets/raviola.jpeg',
+      'assets/place_pictures/ayam_bakar_de_peri.png',
+      'assets/place_pictures/dino_gate.jpeg',
     ];
 
     const double imageHeight = 100.0; // Adjust height as needed
-
 
     return Scaffold(
       appBar: AppBar(
@@ -106,14 +131,13 @@ class _GalleryPageState extends State<GalleryPage> {
                 Navigator.pushReplacementNamed(context, '/gallery');
               },
             ),
-             ListTile(
+            ListTile(
               leading: const Icon(Icons.account_box),
               title: const Text('Profile'),
               onTap: () {
                 Navigator.pushReplacementNamed(context, '/profile');
               },
             ),
-
           ],
         ),
       ),
@@ -141,91 +165,159 @@ class _GalleryPageState extends State<GalleryPage> {
                 ),
               ),
 
-              const SizedBox(height: 20),
-
-              Stack(
-                children: [
-                  Positioned.fill(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
-                      child: ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          Colors.grey.withOpacity(1), // Adjust the opacity to make the image darker
-                          BlendMode.multiply,
+              const SizedBox(height: 10),
+              // Filter Box
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Filter Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigate to the filter page here
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage()));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
                           ),
-                      child: Image.asset(
-                        'pictures/intro.jpg',
-                        width: double.infinity,
-                        height: 200,
-                        fit: BoxFit.cover,
+                          child: const Icon(Icons.filter_list, color: Colors.white, size: 20),
+                        ),
                       ),
                     ),
-                  ),
-                ),
+                    
+                    const SizedBox(width: 10),
 
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(70.0),
-                      child: const Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Welcome to GuideMe',
+                    // Beach Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Beach button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Beach',
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
+                              color: Colors.black,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Batam Navigation',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
 
-             const SizedBox(height: 10),
+                    const SizedBox(width: 10),
 
-
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
-                child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'For You',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                          // Arahkan ke halaman lain saat "See More" ditekan
-                          Navigator.pushReplacementNamed(context, '/yourPageRoute');
+                    // Natural Attractions Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Natural Attractions button here
                         },
-                        child: const Text(
-                          'See More',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black, // Warna teks "See More"
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Natural Attractions',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ],
+                    ),
+
+                    const SizedBox(width: 10),
+
+                    // Historical Sites Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Historical Sites button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Historical Sites',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              
+              const SizedBox(height: 20),
+
+            Row(
+              children: [
+                const SizedBox(width: 1),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    padding: const EdgeInsets.only(right: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30.0),
+                      border: Border.all(color: Colors.black, width: 1),
+                    ),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.search, size: 20),
+                        prefixIconConstraints: BoxConstraints(minHeight: 25, minWidth: 50),
+                        contentPadding: EdgeInsets.only(left: 20, right: 20),
+                        border: InputBorder.none,
+                        hintText: 'Search GuideMe...',
+                        hintStyle: TextStyle(fontSize: 14),
+                      ),
+                      onChanged: (text) {
+                        // Handle the user's input here
+                        ('Search query: $text');
+                      },
+                    ),
                   ),
                 ),
+              ],
+            ),
 
-              // Grid of images
+              const SizedBox(height: 20),
+
               GridView.builder(
                 physics: const NeverScrollableScrollPhysics(), // Disable scrolling in GridView
                 shrinkWrap: true, // Make GridView take only the required space
@@ -235,20 +327,26 @@ class _GalleryPageState extends State<GalleryPage> {
                 ),
                 itemCount: imagePaths.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(4.0), // Padding between images
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.asset(
-                        imagePaths[index], // Load image from the path
-                        fit: BoxFit.cover,
-                        height: imageHeight, // Set the height of each image
+                  return GestureDetector(
+                    onTap: () {
+                      // Show modal with full image when tapped
+                      _showImageModal(context, imagePaths[index]);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0), // Padding between images
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.asset(
+                          imagePaths[index], // Load image from the path
+                          fit: BoxFit.cover,
+                          height: imageHeight, // Set the height of each image
+                        ),
                       ),
                     ),
                   );
                 },
               ),
-             
+
               const SizedBox(height: 30),
 
               const Center(
@@ -260,7 +358,9 @@ class _GalleryPageState extends State<GalleryPage> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 20),
+
               const Center(
                 child: Text(
                   'Made by PBL-IF-12',
@@ -274,8 +374,8 @@ class _GalleryPageState extends State<GalleryPage> {
           ),
         ),
       ),
-
-            bottomNavigationBar: BottomNavigationBar(
+      
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
@@ -295,7 +395,7 @@ class _GalleryPageState extends State<GalleryPage> {
             icon: Icon(Icons.photo),
             label: 'Gallery',
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.account_box),
             label: 'Profile',
           ),
@@ -308,4 +408,3 @@ class _GalleryPageState extends State<GalleryPage> {
     );
   }
 }
-

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'ticket_view_all2.dart'; // Import the other pagination pages
 import 'ticket_view_all3.dart';
 import 'ticket_view_all4.dart';
-import 'ticket_detail.dart';
+import 'ticket_detail1.dart';
 import 'ticket_detail2.dart';
 import 'ticket_detail3.dart';
 import 'ticket_detail4.dart';

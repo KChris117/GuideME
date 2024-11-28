@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'view_all.dart';
-import 'view_all2.dart';
-import 'view_all3.dart';
+import 'destinations_view_all.dart';
+import 'destinations_view_all2.dart';
+import 'destinations_view_all3.dart';
 
 class DestinationsViewAll4 extends StatefulWidget {
   const DestinationsViewAll4({super.key});

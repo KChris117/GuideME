@@ -32,10 +32,26 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_map: ^7.0.0
+  flutter_map_cancellable_tile_provider: ^3.0.2
+  latlong2: ^0.9.1
   provider: ^6.1.2
-  webview_flutter: ^4.0.0  # Tambahkan ini
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1
+  geocoding: ^3.0.0
+  cached_network_image: ^3.2.1
+  table_calendar: ^3.1.2
+  intl: ^0.19.0
+  image: ^4.3.0
+  sqflite: ^2.4.0
+  firebase_core : ^3.8.0
+  firebase_auth: ^5.3.3
+  image_picker: ^1.1.2
+  firebase_messaging: ^15.1.5
+  flutter_riverpod: ^2.6.1
+  url_launcher: ^6.3.1
+  cloud_firestore: ^5.5.0
+  webview_flutter: ^4.10.0
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +62,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -54,29 +70,42 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
-
-assets:
-    - background/bg1.gif
-    - event/batam10k.jpeg
-    - event/batamrun.jpg
-    - languages/eng.png
-    - languages/idn.png
-    - languages/spn.png
-    - pictures/intro.jpg
-    - place_pictures/ayam_bakar_de_peri.png
-    - place_pictures/dino_gate.jpeg
-    - place_pictures/gereja_pulau_galang.jpeg
-    - place_pictures/gpib_immanuel.jpg
-    - place_pictures/makam_abdul_jamal.jpg
-    - place_pictures/mega_mall_batam.jpg
-    - place_pictures/miniatur_house.jpeg
-    - place_pictures/palm_spring_golf.jpg
-    - place_pictures/rumah_limas_potong.jpeg
-    - profiles/profile/jpg
-    - tickets/camp_vietnam.jpg
-    - tickets/melur.jpg
-    - tickets/ocarina.jpg
-    - tickets/raviola.jpeg
+  assets:
+    - assets/logo/guideme2.jpg
+    - assets/logo/loading.gif
+    - assets/event/batam10k.jpeg
+    - assets/event/batamrun.jpg
+    - assets/languages/eng.png
+    - assets/languages/idn.png
+    - assets/languages/spn.png
+    - assets/pictures/intro.jpg
+    - assets/place_pictures/ayam_bakar_de_peri.png
+    - assets/place_pictures/dino_gate.jpeg
+    - assets/place_pictures/gereja_pulau_galang.jpeg
+    - assets/place_pictures/gpib_immanuel.jpg
+    - assets/place_pictures/makam_abdul_jamal.jpg
+    - assets/place_pictures/mega_mall_batam.jpg
+    - assets/place_pictures/miniatur_house.jpeg
+    - assets/place_pictures/palm_spring_golf.jpg
+    - assets/place_pictures/rumah_limas_potong.jpeg
+    - assets/place_pictures/makam_abdul_jamal/foto1.jpg
+    - assets/place_pictures/makam_abdul_jamal/foto2.jpg
+    - assets/place_pictures/makam_abdul_jamal/foto3.jpg
+    - assets/place_pictures/makam_abdul_jamal/foto4.jpg
+    - assets/place_pictures/makam_abdul_jamal/foto5.jpg
+    - assets/place_pictures/makam_abdul_jamal/foto6.jpg
+    - assets/profiles/profile.jpg
+    - assets/slidebar/firness_picture.png
+    - assets/tickets/camp_vietnam.jpg
+    - assets/tickets/melur.jpg
+    - assets/tickets/ocarina.jpg
+    - assets/tickets/raviola.jpeg
+    - assets/profiles/profile.jpg
+    - assets/place_pictures/makam_abdul_jamal/foto2.jpg
+    - assets/place_pictures/makam_abdul_jamal/foto4.jpg
+    - assets/categories/historycal_sites.png
+    - assets/categories/beach.png
+    - assets/categories/food.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

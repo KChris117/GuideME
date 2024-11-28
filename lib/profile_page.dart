@@ -1,10 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:guide_me/choose_language.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'show_profile_page.dart';
-import 'user_auth.dart';
-import 'homepage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:guide_me/choose_language.dart';
+import 'package:guide_me/user_detail.dart';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,30 +24,47 @@ class _ProfilePageState extends State<ProfilePage> {
     // Add navigation logic or other actions here based on index
     switch (index) {
       case 0:
-        // Navigate to Home
         Navigator.pushReplacementNamed(context, '/');
         break;
       case 1:
-        // Navigate to Blog
         Navigator.pushReplacementNamed(context, '/ticket');
         break;
       case 2:
-        // Navigate to Search
         Navigator.pushReplacementNamed(context, '/search');
         break;
       case 3:
-        // Navigate to Gallery
         Navigator.pushReplacementNamed(context, '/gallery');
         break;
       case 4:
-        // Navigate to Profile
         Navigator.pushReplacementNamed(context, '/profile');
         break;
     }
   }
 
+Future<String?> _getProfileImageUrl() async {
+  final user = FirebaseAuth.instance.currentUser;
+  final doc = await FirebaseFirestore.instance
+      .collection('user_profile_detail')
+      .doc(user?.uid)
+      .get();
+
+  if (doc.exists) {
+    return doc.data()?['profile_image_url'];
+  }
+  return null;
+}
+
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
+    // If the user is logged in, navigate directly to the homepage.
+    if (user != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, '/homepage');
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -107,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
-
+      
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
@@ -123,84 +140,147 @@ class _ProfilePageState extends State<ProfilePage> {
                   fontWeight: FontWeight.w800,
                 ),
               ),
+
               const SizedBox(height: 20),
-              Text(
-                'Edit Profile With Your Preference',
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.grey,
-                ),
-              ),
-
-              const SizedBox(height: 10), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-
-              const SizedBox(height: 45), // Space after the divider
-
-              // Profile Logo with ListTile below
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Profile section with avatar and name
-                  Row(
-                    children: [
-                      // Profile Logo
-                    const CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage('profiles/profile.jpg'),
-                      ),
-                      
-                      const SizedBox(width: 20), 
-                      // Space between avatar and text
-
-                  // Name text next to profile picture
-                  Expanded(
-                    child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Archeus', // Example name
-                        style: GoogleFonts.inter(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                  const SizedBox(height: 2),
-                    Text(
-                      'Show Profile', // Optional subtitle, can be removed
+            // Jika pengguna sudah login, tampilkan foto profil
+            
+              // Teks yang berubah tergantung pada status login dan verifikasi email
+              user == null || !user.emailVerified
+                  ? Text(
+                      'Log in to start planning your trip',
                       style: GoogleFonts.inter(
                         fontSize: 16,
+                        fontWeight: FontWeight.normal,
                         color: Colors.grey,
-                        ),
                       ),
-                    ],
-                  ),
-                ),
-
-                  IconButton(
-                    icon: const Icon(Icons.chevron_right),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ShowProfile(), // Navigate to ShowProfile page
-                          ),
-                        );
-                      },
+                    )
+                  : Text(
+                      'Edit profile with your preference',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey,
+                      ),
                     ),
+              const SizedBox(height: 10),
+              const Divider(thickness: 1, color: Colors.grey),
+              const SizedBox(height: 50),
+
+              // Profile Logo with ListTile below
+              user == null
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 50),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  backgroundColor: Colors.black,
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/login');
+                                },
+                                child: Text(
+                                  'Login',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 50),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  backgroundColor: Colors.black,
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/register');
+                                },
+                                child: Text(
+                                  'Register',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30), // Tambahkan jarak di sini
+                      ],
+                    )
                     
-                  ],
-                ),
-              ]
-            ),
-
-          
-                  
-              const SizedBox(height: 5), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 25), // Space after the divider
-
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        user == null || !user.emailVerified
+                            ? Text(
+                                'Log in to start planning your trip',
+                                style: GoogleFonts.inter(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.grey,
+                                ),
+                              )
+                            : Row(
+                                children: [
+                                  // Foto Profil di Samping Teks Welcome
+                                  user == null
+                                      ? const SizedBox(
+                                          width: 100,
+                                          height: 100,
+                                          child: Icon(Icons.account_circle, size: 100),
+                                        )
+                                      : FutureBuilder<String?>(
+                                          future: _getProfileImageUrl(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                              return const CircularProgressIndicator();
+                                            }
+                                            String? profileImageUrl = snapshot.data;
+                                            return CircleAvatar(
+                                              radius: 50,
+                                              backgroundImage: profileImageUrl != null && profileImageUrl.isNotEmpty
+                                                  ? NetworkImage(profileImageUrl)
+                                                  : const AssetImage('assets/images/default_profile.png') as ImageProvider,
+                                            );
+                                          },
+                                        ),
+                                  const SizedBox(width: 10), // Jarak antara foto dan teks
+                                  user != null && user.emailVerified
+                                      ? Text(
+                                          '${user.displayName ?? 'User'}',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      : Text(
+                                          'Email not verified. Please verify your email to see your profile.',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                ],
+                              ),
+                        const SizedBox(height: 5),
+                        const Divider(thickness: 1, color: Colors.grey),
+                        const SizedBox(height: 25),
+                      ],
+                    ),
               Text(
                 'Settings',
                 style: GoogleFonts.inter(
@@ -208,91 +288,112 @@ class _ProfilePageState extends State<ProfilePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              
-              const SizedBox(height: 8), // Space after the divider
-              
-                  // List options (Edit Profile, Change Language, Logout)
-                  ListTile(
-                    leading: const Icon(Icons.person_2),
-                    title: const Text('Personal Information'),
-                    trailing: const Icon(Icons.chevron_right),  // Chevron icon
-                    onTap: () {
-                      // Handle edit profile
-                    },
-                  ),
-              const SizedBox(height: 2), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 5), // Space after the divider
-                  ListTile(
-                    leading: const Icon(Icons.language),
-                    title: const Text('Languages'),
-                    trailing: const Icon(Icons.chevron_right),  // Chevron icon
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ChooseLanguage(),
-                        ),
-                      );
-                    },
-                  ),
-              const SizedBox(height: 2), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 5), // Space after the divider
-                  ListTile(
-                    leading: const Icon(Icons.notifications),
-                    title: const Text('Notification'),
-                    trailing: const Icon(Icons.chevron_right),  // Chevron icon
-                    onTap: () {
-                      
-                    },
-                  ),
-              const SizedBox(height: 2), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 5), // Space after the divider
-                  ListTile(
-                    leading: const Icon(Icons.history),
-                    title: const Text('History'),
-                    trailing: const Icon(Icons.chevron_right),  // Chevron icon
-                    onTap: () {
-                      // Handle edit profile
-                    },
-                  ),
-              const SizedBox(height: 2), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 5), // Space after the divider
-                  ListTile(
-                    leading: const Icon(Icons.question_mark),
-                    title: const Text('Get Help'),
-                    trailing: const Icon(Icons.chevron_right),  // Chevron icon
-                    onTap: () {
-                      // Handle logout
-                    },
-                  ),
-              const SizedBox(height: 2), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 5), // Space after the divider
-                  ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                trailing: const Icon(Icons.chevron_right),  // Chevron icon
+              const SizedBox(height: 8),
+              Visibility(
+                visible: user != null && user.emailVerified, // Menyembunyikan jika email belum diverifikasi
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.person_2),
+                      title: const Text('Personal Information'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UserDetail(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 2),
+                    const Divider(thickness: 1, color: Colors.grey),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.language),
+                title: const Text('Languages'),
+                trailing: const Icon(Icons.chevron_right),
                 onTap: () {
-                  // Handle logout
-                  Provider.of<UserAuth>(context, listen: false).logout(); // Logout from UserAuth
-                  Navigator.pushAndRemoveUntil(
+                  Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()), // Navigate to HomePage
-                    (route) => false, // Removes all previous routes
+                    MaterialPageRoute(
+                      builder: (context) => const ChooseLanguage(),
+                    ),
                   );
                 },
               ),
-              const SizedBox(height: 2), // Space before the divider
-              const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 5), // Space after the divider
-                ],
+              const SizedBox(height: 2),
+              const Divider(thickness: 1, color: Colors.grey),
+              const SizedBox(height: 5),
+              Visibility(
+                visible: user != null && user.emailVerified, // Menyembunyikan jika email belum diverifikasi
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.notifications),
+                      title: const Text('Notification'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {},
+                    ),
+                    const SizedBox(height: 2),
+                    const Divider(thickness: 1, color: Colors.grey),
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
+              Visibility(
+                visible: user != null && user.emailVerified, // Menyembunyikan jika email belum diverifikasi
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.history),
+                      title: const Text('History'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {},
+                    ),
+                    const SizedBox(height: 2),
+                    const Divider(thickness: 1, color: Colors.grey),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.question_mark),
+                title: const Text('Get Help'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {},
+              ),
+              const SizedBox(height: 2),
+              const Divider(thickness: 1, color: Colors.grey),
+              const SizedBox(height: 5),
+              Visibility(
+                visible: user != null,
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.logout),
+                      title: const Text('Logout'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: user != null
+                          ? () async {
+                              await FirebaseAuth.instance.signOut();
+                              Navigator.pushReplacementNamed(context, '/profile');
+                            }
+                          : null,
+                    ),
+                    const SizedBox(height: 2),
+                    const Divider(thickness: 1, color: Colors.grey),
+                    const SizedBox(height: 300),
+                  ],
+                ),
+              ),
+            ],
           ),
+        ),
+      ),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -314,7 +415,7 @@ class _ProfilePageState extends State<ProfilePage> {
             icon: Icon(Icons.photo),
             label: 'Gallery',
           ),
-          BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(Icons.account_box),
             label: 'Profile',
           ),

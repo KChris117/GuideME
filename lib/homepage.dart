@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'detail_1page.dart';
-import 'detail_2page.dart';
+import 'detail_page1.dart';
+import 'detail_page2.dart';
+import 'event_detail1.dart';
+import 'event_detail2.dart';
 import 'transaction_detail_1page.dart';
 import 'transaction_detail_2page.dart';
 import 'transaction_eventdetail_1page.dart';
 import 'transaction_eventdetail_2page.dart';
-import 'view_all.dart';
+import 'destinations_view_all.dart';
 import 'event_view_all.dart';
-import 'event_detail1.dart';
-import 'event_detail2.dart';
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -151,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           BlendMode.multiply,
                           ),
                       child: Image.asset(
-                        'pictures/intro.jpg',
+                        'assets/pictures/intro.jpg',
                         width: double.infinity,
                         height: 200,
                         fit: BoxFit.cover,
@@ -235,9 +234,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Makam Tumenggung Abdul Jamal', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/makam_abdul_jamal.jpg',
+                    'Tumenggung Abdul Jamal', 
+                    'Bulau Lintang, Batam, Indonesia', 
+                    'assets/place_pictures/makam_abdul_jamal.jpg',
                     'Rp 50.000',
                     4.8 // 5-star rating
                      // Add the price here
@@ -245,8 +244,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
                     'Taman Miniature House Indonesia', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/miniatur_house.jpeg',
+                    'Bengkong, Batam, Indonesia', 
+                    'assets/place_pictures/miniatur_house.jpeg',
                     'Rp 200.000', // Add the price here\
                     4.3 // 5-star rating
                   )),
@@ -300,17 +299,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Expanded(child: _buildPlaceCard(
                     'Batam RUN Neo Ocarina', 
-                    'Bengkong, Indonesia', 
-                    'event/batamrun.jpg',
-                    'Rp 10.000', // Add the price here
+                    'Bengkong, Batam, Indonesia', 
+                    'assets/event/batamrun.jpg',
+                    'Rp 5.000', // Add the price here
                     4.5 // 5-star rating
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
                     'Batam 10K Engku Putri', 
-                    'Batam Center, Indonesia', 
-                    'event/batam10k.jpeg',
-                    'Rp 5.000', // Add the price here
+                    'Batam Center, Batam, Indonesia', 
+                    'assets/event/batam10k.jpeg',
+                    'Rp 150.000', // Add the price here
                     4.0 // 5-star rating
                   )),
                 ],
@@ -321,7 +320,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   width: double.infinity, // Make the container take up full width
                   padding: const EdgeInsets.symmetric(vertical: 16.0), // Adjust vertical padding as needed
-                  color: Colors.white, // White background color
                 child: const Column(
                     mainAxisSize: MainAxisSize.min, // Keep the column as small as its children
                   children: [
@@ -453,19 +451,6 @@ Widget _buildPlaceCard(String title, String description, String imagePath, Strin
                 fontWeight: FontWeight.w400,
               ),
             ),
-            const SizedBox(height: 2),
-            // Stars row aligned to the left
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 1
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 2
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 3
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 4
-                Icon(Icons.star_half, color: Colors.yellow[700], size: 15), // Half-star for 4.5 rating
-                const SizedBox(width: 0.1),
-              ],
-            ),
           ],
         ),
       ),
@@ -481,7 +466,7 @@ Widget _buildPlaceCard(String title, String description, String imagePath, Strin
             child: GestureDetector(
               onTap: () {
                 // Navigate based on price and title
-                if (price == 'Rp 50.000' && title == 'Makam Tumenggung Abdul Jamal') {
+                if (price == 'Rp 50.000' && title == 'Tumenggung Abdul Jamal') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
@@ -491,12 +476,12 @@ Widget _buildPlaceCard(String title, String description, String imagePath, Strin
                     context,
                     MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
                   );
-                } else if (price == 'Rp 10.000' && title == 'Batam RUN Neo Ocarina') {
+                } else if (price == 'Rp 5.000' && title == 'Batam RUN Neo Ocarina') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const TransactionEventDetail1Page()),
                   );
-                } else if (price == 'Rp 5.000' && title == 'Batam 10K Engku Putri') {
+                } else if (price == 'Rp 150.000' && title == 'Batam 10K Engku Putri') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const TransactionEventDetail2Page()),
@@ -522,7 +507,7 @@ Widget _buildPlaceCard(String title, String description, String imagePath, Strin
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                if (title == 'Makam Tumenggung Abdul Jamal') {
+                if (title == 'Tumenggung Abdul Jamal') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Detail1Page()),

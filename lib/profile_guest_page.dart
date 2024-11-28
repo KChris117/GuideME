@@ -132,6 +132,7 @@ class _GuestProfileState extends State<GuestProfile> {
               ),
 
               const SizedBox(height: 10), // Space before the divider
+
               const Divider(thickness: 1, color: Colors.grey), // Divider below text
 
               const SizedBox(height: 50), // Space after the divider
@@ -168,6 +169,7 @@ class _GuestProfileState extends State<GuestProfile> {
                       ),
                     ),
                   ),
+
                   const SizedBox(width: 20), // Space between buttons
 
                   // Register button with custom height, width, and rounded corners
@@ -201,7 +203,9 @@ class _GuestProfileState extends State<GuestProfile> {
           ),
     
               const SizedBox(height: 5), // Space before the divider
+              
               const Divider(thickness: 1, color: Colors.grey), // Divider below text
+
               const SizedBox(height: 25), // Space after the divider
 
               Text(
@@ -228,9 +232,13 @@ class _GuestProfileState extends State<GuestProfile> {
                       );
                     },
                   ),
+
               const SizedBox(height: 2), // Space before the divider
+
               const Divider(thickness: 1, color: Colors.grey), // Divider below text
+
               const SizedBox(height: 5), // Space after the divider
+
                   ListTile(
                     leading: const Icon(Icons.notifications),
                     title: const Text('Notification'),
@@ -244,20 +252,27 @@ class _GuestProfileState extends State<GuestProfile> {
                       );
                     },
                   ),
+
               const SizedBox(height: 2), // Space before the divider
+
               const Divider(thickness: 1, color: Colors.grey), // Divider below text
+
               const SizedBox(height: 5), // Space after the divider
+
                   ListTile(
                     leading: const Icon(Icons.question_mark),
                     title: const Text('Get Help'),
                     trailing: const Icon(Icons.chevron_right),  // Chevron icon
                     onTap: () {
-                      // Handle logout
                     },
                   ),
+
               const SizedBox(height: 2), // Space before the divider
+
               const Divider(thickness: 1, color: Colors.grey), // Divider below text
-              const SizedBox(height: 5), // Space after the divider
+
+              const SizedBox(height: 300), // Space after the divider
+
                 ],
               ),
             ),

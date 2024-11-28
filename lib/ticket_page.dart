@@ -1,10 +1,7 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'ticket_detail.dart';
+import 'ticket_detail1.dart';
 import 'ticket_detail2.dart';
-import 'ticket_detail3.dart';
-import 'ticket_detail4.dart';
-
 
 class TicketPage extends StatefulWidget {
   const TicketPage({super.key});
@@ -105,7 +102,6 @@ class _TicketPageState extends State<TicketPage> {
                 Navigator.pushReplacementNamed(context, '/profile');
               },
             ),
-
           ],
         ),
       ),
@@ -134,126 +130,121 @@ class _TicketPageState extends State<TicketPage> {
               ),
 
               const SizedBox(height: 10),
-
               // Filter Box
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start, // Align the buttons to the start (left)
-                children: [
-                  // Existing Filter Button
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Navigate to the filter page here
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                        child: const Icon(Icons.filter_list, color: Colors.white, size: 20), // Centered filter icon
-                      ),
-                    ),
-                  ),
-
-                  // SizedBox to add custom spacing between the buttons
-                  const SizedBox(width: 10), // Adjust the width as per your requirement
-
-                  // New Box Button (Right side of the Filter button)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Define the action for the new button here
-                        // For example: Navigator.push(context, MaterialPageRoute(builder: (context) => NewPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                       child: const Text(
-                        'Beach', // The text inside the button
-                        style: TextStyle(
-                          color: Colors.black, // Text color
-                          fontSize: 14, // Text size
-                          fontWeight: FontWeight.bold, // Text weight
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Filter Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigate to the filter page here
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage()));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Icon(Icons.filter_list, color: Colors.white, size: 20),
                         ),
                       ),
                     ),
-                  ),
+                    const SizedBox(width: 10),
+
+                    // Beach Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Beach button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Beach',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+
+                    // Natural Attractions Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Natural Attractions button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Natural Attractions',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+
+                    // Historical Sites Button
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Define the action for the Historical Sites button here
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.black, width: 1),
+                          ),
+                          child: const Text(
+                            'Historical Sites',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-
-                // SizedBox to add custom spacing between the buttons
-                  const SizedBox(width: 10), // Adjust the width as per your requirement
-
-                  // New Box Button (Right side of the Filter button)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Define the action for the new button here
-                        // For example: Navigator.push(context, MaterialPageRoute(builder: (context) => NewPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                       child: const Text(
-                        'Natural Actractions', // The text inside the button
-                        style: TextStyle(
-                          color: Colors.black, // Text color
-                          fontSize: 14, // Text size
-                          fontWeight: FontWeight.bold, // Text weight
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // SizedBox to add custom spacing between the buttons
-                  const SizedBox(width: 10), // Adjust the width as per your requirement
-
-                  // New Box Button (Right side of the Filter button)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Define the action for the new button here
-                        // For example: Navigator.push(context, MaterialPageRoute(builder: (context) => NewPage()));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Margin for spacing
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.black, width: 1),
-                        ),
-                       child: const Text(
-                        'Historical Sites', // The text inside the button
-                        style: TextStyle(
-                          color: Colors.black, // Text color
-                          fontSize: 14, // Text size
-                          fontWeight: FontWeight.bold, // Text weight
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),              
+              ),
+              
+              const SizedBox(height: 20),
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
@@ -276,10 +267,10 @@ class _TicketPageState extends State<TicketPage> {
                   _buildNavigationBox(
                     'Pantai Raviola',
                     'Organized by Batam Tourist',
-                    'tickets/raviola.jpeg',
+                    'assets/tickets/raviola.jpeg',
                     '4.4',
                     'Unlimited',
-                    'Galang Baru, Kota Batam, Indonesia',
+                    'Galang Baru, Batam',
                     '24 Jam',
                     'Starts from',
                     'Rp 20.000',
@@ -290,17 +281,19 @@ class _TicketPageState extends State<TicketPage> {
                       );
                     },
                   ),
-                  const SizedBox(height: 20), // Space between boxes
+
+                  const SizedBox(height: 20), 
+                  // Space between boxes
                   _buildNavigationBox(
                     'Pantai Melur',
-                    'Organized by Batam Tourista',
-                    'tickets/melur.jpg',
+                    'Organized by Batam Tourist',
+                    'assets/tickets/melur.jpg',
                     '4.5',
                     'Unlimited',
-                    'Galang Baru, Kota Batam, Indonesia',
+                    'Galang Baru, Batam',
                     '24 Jam',
                     'Starts from',
-                    'Rp 10.000',
+                    'Rp 25.000',
                     onPurchase: () {
                       Navigator.push(
                         context,
@@ -308,42 +301,87 @@ class _TicketPageState extends State<TicketPage> {
                       );
                     },
                   ),
-                  const SizedBox(height: 20), // Space between boxes
+
+                  const SizedBox(height: 20), 
+                  // Space between boxes
                   _buildNavigationBox(
-                    'Ocarina',
+                    'Pantai Raviola',
                     'Organized by Batam Tourist',
-                    'tickets/ocarina.jpg',
-                    '4.2',
+                    'assets/tickets/raviola.jpeg',
+                    '4.4',
                     'Unlimited',
-                    'Bengkong, Kota Batam, Indonesia',
-                    '08.00 am - 22.00 pm',
+                    'Galang Baru, Batam',
+                    '24 Jam',
                     'Starts from',
-                    'Rp 50.000',
+                    'Rp 20.000',
                     onPurchase: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const TicketDetail3Page()),
+                        MaterialPageRoute(builder: (context) => const TicketDetail1Page()),
                       );
                     },
                   ),
-                  const SizedBox(height: 20), // Space between boxes
+
+                  const SizedBox(height: 20), 
+                  // Space between boxes
                   _buildNavigationBox(
-                    'Camp Vietnam',
+                    'Pantai Melur',
                     'Organized by Batam Tourist',
-                    'tickets/camp_vietnam.jpg',
-                    '4.3',
+                    'assets/tickets/melur.jpg',
+                    '4.5',
                     'Unlimited',
-                    'Galang Baru, Kota Batam, Indonesia',
-                    '07.30 am - 20.00 pm',
+                    'Galang Baru, Batam',
+                    '24 Jam',
                     'Starts from',
-                    'Rp 70.000',
+                    'Rp 25.000',
                     onPurchase: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const TicketDetail4Page()),
+                        MaterialPageRoute(builder: (context) => const TicketDetail2Page()),
                       );
                     },
                   ),
+
+                  const SizedBox(height: 20), 
+                  // Space between boxes
+                  _buildNavigationBox(
+                    'Pantai Raviola',
+                    'Organized by Batam Tourist',
+                    'assets/tickets/raviola.jpeg',
+                    '4.4',
+                    'Unlimited',
+                    'Galang Baru, Batam',
+                    '24 Jam',
+                    'Starts from',
+                    'Rp 20.000',
+                    onPurchase: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TicketDetail1Page()),
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 20), 
+                  // Space between boxes
+                  _buildNavigationBox(
+                    'Pantai Melur',
+                    'Organized by Batam Tourist',
+                    'assets/tickets/melur.jpg',
+                    '4.5',
+                    'Unlimited',
+                    'Galang Baru, Batam',
+                    '24 Jam',
+                    'Starts from',
+                    'Rp 25.000',
+                    onPurchase: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TicketDetail2Page()),
+                      );
+                    },
+                  ),
+
                 ],
               ),
              
@@ -358,7 +396,9 @@ class _TicketPageState extends State<TicketPage> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 20),
+
               const Center(
                 child: Text(
                   'Made by PBL-IF-12',
@@ -372,7 +412,7 @@ class _TicketPageState extends State<TicketPage> {
           ),
         ),
       ),
-      
+
 
         bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -407,23 +447,22 @@ class _TicketPageState extends State<TicketPage> {
     );
   }
 
-  Widget _buildNavigationBox(
-    String title, 
-    String organized, 
-    String imagePath, 
-    String rating, 
-    String calendar, 
-    String location, 
-    String time, 
-    String startsfrom, 
-    String prize,
-    {
-    required VoidCallback onPurchase,
-    double imagePaddingTop = 20.0, 
-    double imagePaddingBottom = 20.0, 
-    double imagePaddingLeft = 20.0, 
-    double imagePaddingRight = 5.0
-    }) {
+Widget _buildNavigationBox(
+  String title,
+  String organized,
+  String imagePath,
+  String rating,
+  String calendar,
+  String location,
+  String time,
+  String startsfrom,
+  String prize, {
+  required VoidCallback onPurchase,
+  double imagePaddingTop = 20.0,
+  double imagePaddingBottom = 20.0,
+  double imagePaddingLeft = 20.0,
+  double imagePaddingRight = 5.0,
+}) {
   return MouseRegion(
     cursor: SystemMouseCursors.click, // Change cursor to finger on hover
     child: GestureDetector(
@@ -582,8 +621,9 @@ class _TicketPageState extends State<TicketPage> {
                         color: Colors.grey,
                       ),
                     ),
+                    // Row for price and purchase button
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start, // Space between the text and button
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space items between
                       children: [
                         Text(
                           prize,
@@ -593,24 +633,26 @@ class _TicketPageState extends State<TicketPage> {
                             color: Colors.black,
                           ),
                         ),
-                        const SizedBox(width: 90), // Spacing between the text and button
-                        // Purchase Button
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click, // Change cursor to pointer on hover
-                          child: GestureDetector(
-                            onTap: onPurchase, // Use the provided onPurchase function
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0), // Padding inside the button
-                              decoration: BoxDecoration(
-                                color: Colors.black, // Button background color
-                                borderRadius: BorderRadius.circular(10.0), // Rounded corners
-                              ),
-                              child: const Text(
-                                'Purchase',
-                                style: TextStyle(
-                                  color: Colors.white, // Text color
-                                  fontSize: 14, // Text size
-                                  fontWeight: FontWeight.bold, // Text weight
+                        // Padding or margin before the purchase button
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0), // Add padding here
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click, // Change cursor to pointer on hover
+                            child: GestureDetector(
+                              onTap: onPurchase, // Use the provided onPurchase function
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0), // Padding inside the button
+                                decoration: BoxDecoration(
+                                  color: Colors.black, // Button background color
+                                  borderRadius: BorderRadius.circular(10.0), // Rounded corners
+                                ),
+                                child: const Text(
+                                  'Purchase',
+                                  style: TextStyle(
+                                    color: Colors.white, // Text color
+                                    fontSize: 14, // Text size
+                                    fontWeight: FontWeight.bold, // Text weight
+                                  ),
                                 ),
                               ),
                             ),

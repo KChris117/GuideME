@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'view_all.dart'; // Import the other pagination pages
-import 'view_all2.dart';
-import 'view_all4.dart';
+import 'destinations_view_all.dart'; // Import the other pagination pages
+import 'destinations_view_all3.dart';
+import 'destinations_view_all4.dart';
 
-class DestinationsViewAll3 extends StatefulWidget {
-  const DestinationsViewAll3({super.key});
+class DestinationsViewAll2 extends StatefulWidget {
+  const DestinationsViewAll2({super.key});
 
   @override
-  State<DestinationsViewAll3> createState() => _DestinationsViewAll3State();
+  State<DestinationsViewAll2> createState() => _DestinationsViewAll2State();
 }
 
-class _DestinationsViewAll3State extends State<DestinationsViewAll3> {
+class _DestinationsViewAll2State extends State<DestinationsViewAll2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +93,7 @@ class _DestinationsViewAll3State extends State<DestinationsViewAll3> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const DestinationsViewAll2()), // Navigate to page 1
+                            MaterialPageRoute(builder: (context) => const DestinationsViewAll()), // Navigate to page 1
                           );
                         },
                         child: const Icon(
@@ -136,14 +136,14 @@ class _DestinationsViewAll3State extends State<DestinationsViewAll3> {
                             padding: const EdgeInsets.all(8.0),
                             margin: const EdgeInsets.symmetric(horizontal: 4.0),
                             decoration: BoxDecoration(
-                              color: i == 3 ? Colors.black : Colors.white, // Highlight current page
+                              color: i == 2 ? Colors.black : Colors.white, // Highlight current page
                               borderRadius: BorderRadius.circular(5.0),
                               border: Border.all(color: Colors.black),
                             ),
                             child: Text(
                               '$i',
                               style: TextStyle(
-                                color: i == 3 ? Colors.white : Colors.black,
+                                color: i == 2 ? Colors.white : Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -160,7 +160,7 @@ class _DestinationsViewAll3State extends State<DestinationsViewAll3> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const DestinationsViewAll4()), // Navigate to page 3
+                            MaterialPageRoute(builder: (context) => const DestinationsViewAll3()), // Navigate to page 3
                           );
                         },
                         child: const Icon(

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'detail_1page.dart';
-import 'detail_2page.dart';
+import 'detail_page1.dart';
+import 'detail_page2.dart';
+import 'event_detail1.dart';
+import 'event_detail2.dart';
 import 'transaction_detail_1page.dart';
 import 'transaction_detail_2page.dart';
+import 'transaction_eventdetail_1page.dart';
+import 'transaction_eventdetail_2page.dart';
+import 'destinations_view_all.dart';
+import 'event_view_all.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -12,7 +18,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  int _selectedIndex = 2; // Gallery tab
+  int _selectedIndex = 2; // Track the selected index for BottomNavigationBar
 
   void _onItemTapped(int index) {
     setState(() {
@@ -44,28 +50,28 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Row(
           children: [
-            const SizedBox(width: 1), // Add some space between the text and the search bar
+            const SizedBox(width: 1),
             Expanded(
               child: Container(
                 height: 40,
-                padding: const EdgeInsets.only(right: 5), // Add some space to the right of the search bar
+                padding: const EdgeInsets.only(right: 5),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30.0),
-                  border: Border.all(color: Colors.black, width: 1)
+                  border: Border.all(color: Colors.black, width: 1),
                 ),
                 child: TextField(
                   decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search, size: 20), // Add a "Search" logo to the left side of the text
-                    prefixIconConstraints: BoxConstraints(minHeight: 25, minWidth: 50), // Set the alignment of the prefixIcon to the center
-                    contentPadding: EdgeInsets.only(left: 20, right: 20), // Add some space to the right of the "Search GuideMe" text
+                    prefixIcon: Icon(Icons.search, size: 20),
+                    prefixIconConstraints: BoxConstraints(minHeight: 25, minWidth: 50),
+                    contentPadding: EdgeInsets.only(left: 20, right: 20),
                     border: InputBorder.none,
                     hintText: 'Search GuideMe...',
                     hintStyle: TextStyle(fontSize: 14),
@@ -80,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
       ),
-
+      
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -161,6 +167,57 @@ class _SearchPageState extends State<SearchPage> {
               ),
 
               const SizedBox(height: 20),
+              
+              Stack(
+                children: [
+                  Positioned.fill(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30.0),
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.grey.withOpacity(1), // Adjust the opacity to make the image darker
+                          BlendMode.multiply,
+                          ),
+                      child: Image.asset(
+                        'assets/pictures/intro.jpg',
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(70.0),
+                      child: const Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Welcome to GuideMe',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Batam Navigation',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: 10), // Space between rows
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
@@ -168,123 +225,161 @@ class _SearchPageState extends State<SearchPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Nearby Location',
+                    'Destinations',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                          // Arahkan ke halaman lain saat "See More" ditekan
-                          Navigator.pushReplacementNamed(context, '/yourPageRoute');
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click, // Change cursor to finger pointer
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigate to see_all.dart page when "See More" is clicked
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DestinationsViewAll(), // Route to the see_all.dart page
+                            ),
+                          );
                         },
                         child: const Text(
-                          'See More',
+                          'View All',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black, // Warna teks "See More"
+                            color: Colors.black, // Text color
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
 
-                Row(
+              const SizedBox(height: 10), // Space between rows
+
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Makam Tumenggung Abdul Jamal', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/makam_abdul_jamal.jpg'
+                    'Tumenggung Abdul Jamal', 
+                    'Bulau Lintang, Batam, Indonesia', 
+                    'assets/place_pictures/makam_abdul_jamal.jpg',
+                    'Rp 50.000',
+                    4.8 // 5-star rating
+                     // Add the price here
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
                     'Taman Miniature House Indonesia', 
-                    'Batam Center, Indonesia', 
-                    'place_pictures/miniatur_house.jpeg'
+                    'Bengkong, Batam, Indonesia', 
+                    'assets/place_pictures/miniatur_house.jpeg',
+                    'Rp 200.000', // Add the price here\
+                    4.3 // 5-star rating
                   )),
                 ],
               ),
 
-                const SizedBox(height: 20),
+              const SizedBox(height: 40),
 
-
-                Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Recommended Beach Destination',
+                    'Event',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                          // Arahkan ke halaman lain saat "See More" ditekan
-                          Navigator.pushReplacementNamed(context, '/yourPageRoute');
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click, // Change cursor to finger pointer
+                      child: GestureDetector(
+                        onTap: () {
+                          // Navigate to see_all.dart page when "See More" is clicked
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EventViewAll(), // Route to the see_all.dart page
+                            ),
+                          );
                         },
                         child: const Text(
-                          'See More',
+                          'View All',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black, // Warna teks "See More"
+                            color: Colors.black, // Text color
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
 
-                Row(
+              const SizedBox(height: 10), // Space between rows
+
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildPlaceCard(
-                    'Pantai Raviola', 
-                    'Batam Center, Indonesia', 
-                    'tickets/raviola.jpeg'
+                    'Batam RUN Neo Ocarina', 
+                    'Bengkong, Batam, Indonesia', 
+                    'assets/event/batamrun.jpg',
+                    'Rp 5.000', // Add the price here
+                    4.5 // 5-star rating
                   )),
                   const SizedBox(width: 10),
                   Expanded(child: _buildPlaceCard(
-                    'Pantai Melur', 
-                    'Batam Center, Indonesia', 
-                    'tickets/melur.jpg'
+                    'Batam 10K Engku Putri', 
+                    'Batam Center, Batam, Indonesia', 
+                    'assets/event/batam10k.jpeg',
+                    'Rp 150.000', // Add the price here
+                    4.0 // 5-star rating
                   )),
                 ],
               ),
-             
-              const SizedBox(height: 30),
-              const Center(
-                child: Text(
-                  'Guide Me',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
+
+              const SizedBox(height: 40), // Space between rows
+              Center(
+                child: Container(
+                  width: double.infinity, // Make the container take up full width
+                  padding: const EdgeInsets.symmetric(vertical: 16.0), // Adjust vertical padding as needed
+                child: const Column(
+                    mainAxisSize: MainAxisSize.min, // Keep the column as small as its children
+                  children: [
+                    Text(
+                      'Guide Me',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black, // Black text for contrast
+                    ),
                   ),
+                    SizedBox(height: 10), // Spacing between the texts
+                    Text(
+                      'Made by PBL-IF-12',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black, // Black text for contrast
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              const Center(
-                child: Text(
-                  'Made by PBL-IF-12',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
+            ),
+              
             ],
           ),
         ),
       ),
-
-            bottomNavigationBar: BottomNavigationBar(
+      
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
@@ -317,7 +412,28 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget _buildPlaceCard(String title, String description, String imagePath) {
+/// Helper function to build one star with rating number
+Widget _buildStarsWithRating(double rating) {
+  return Row(
+    children: [
+      // Display the rating number (e.g., 4.5, 5.0)
+      Text(
+        rating.toStringAsFixed(1), // Format rating to 1 decimal
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Colors.black, // Rating text color
+        ),
+      ),
+      const SizedBox(width: 4), // Add some space between number and the star
+      // Display only one black star
+      const Icon(Icons.star, color: Colors.black, size: 15),
+    ],
+  );
+}
+
+  // Helper method to build place cards
+Widget _buildPlaceCard(String title, String description, String imagePath, String price, double rating) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start, // Align column contents to the left
     children: [
@@ -336,14 +452,23 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             const SizedBox(height: 8),
-            // Align the title text to the left
-            Text(
-              title,
-              textAlign: TextAlign.left, // Align text to the left
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+            // Align the title text to the left and show stars next to it
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                // Star rating with rating number next to the title
+                _buildStarsWithRating(rating),
+              ],
             ),
             const SizedBox(height: 8),
             // Add description text below the title and above the stars
@@ -351,60 +476,56 @@ class _SearchPageState extends State<SearchPage> {
               description,
               textAlign: TextAlign.left, // Align text to the left
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
-            ),
-            const SizedBox(height: 2),
-            // Stars row aligned to the left
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 1
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 2
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 3
-                Icon(Icons.star, color: Colors.yellow[700], size: 15), // Star 4
-                Icon(Icons.star_half, color: Colors.yellow[700], size: 15), // Half-star for 4.5 rating
-                const SizedBox(width: 0.1),
-              ],
             ),
           ],
         ),
       ),
-      
 
       const SizedBox(height: 15),
 
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // MouseRegion for 'Detail' button with finger pointer cursor
-      MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {
-            if (title == 'Makam Tumenggung Abdul Jamal') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
-              );
-            } else if (title == 'Miniature House Indonesia') {
-          Navigator.push(
-            context,
-          MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
-        );
-      }
-    },
-        child: const Center(
-          child: Text(
-            'Free',
-            style: TextStyle(
-              color: Colors.grey, // Warna teks
-              fontSize: 12, // Ukuran teks
-            ),
-          ),
-        ),
-
+          // MouseRegion for 'Price' with finger pointer cursor
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                // Navigate based on price and title
+                if (price == 'Rp 50.000' && title == 'Tumenggung Abdul Jamal') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
+                  );
+                } else if (price == 'Rp 200.000' && title == 'Taman Miniature House Indonesia') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
+                  );
+                } else if (price == 'Rp 5.000' && title == 'Batam RUN Neo Ocarina') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionEventDetail1Page()),
+                  );
+                } else if (price == 'Rp 150.000' && title == 'Batam 10K Engku Putri') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TransactionEventDetail2Page()),
+                  );
+                }
+              },
+              child: Center(
+                child: Text(
+                  price, // Only price will be clickable
+                  style: const TextStyle(
+                    color: Colors.grey, // Text color
+                    fontSize: 12, // Text size
+                  ),
+                ),
+              ),
             ),
           ),
 
@@ -415,7 +536,7 @@ class _SearchPageState extends State<SearchPage> {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                if (title == 'Makam Tumenggung Abdul Jamal') {
+                if (title == 'Tumenggung Abdul Jamal') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Detail1Page()),
@@ -424,6 +545,17 @@ class _SearchPageState extends State<SearchPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Detail2Page()),
+                  );
+                }
+                if (title == 'Batam RUN Neo Ocarina') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Event1Page()),
+                  );
+                } else if (title == 'Batam 10K Engku Putri') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Event2Page()),
                   );
                 }
               },
@@ -451,6 +583,6 @@ class _SearchPageState extends State<SearchPage> {
         ],
       ),
     ],
-  );
+);
 }
 }

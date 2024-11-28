@@ -41,9 +41,9 @@ class ChooseLanguage extends StatelessWidget {
               ),
 
               const SizedBox(height: 20), // Add space between the headings and the list
-              _buildLanguageOption(context, 'English', 'languages/eng.png'),
-              _buildLanguageOption(context, 'Indonesia', 'languages/idn.png'),
-              _buildLanguageOption(context, 'Spain', 'languages/spn.png'),
+              _buildLanguageOption(context, 'English', 'assets/languages/eng.png'),
+              _buildLanguageOption(context, 'Indonesia', 'assets/languages/idn.png'),
+              _buildLanguageOption(context, 'Spain', 'assets/languages/spn.png'),
               // Add more languages as needed
             ],
           ),
