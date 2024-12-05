@@ -214,10 +214,7 @@ class _TicketViewAllState extends State<TicketViewAll> {
                       'Rp 20.000',
                       'tickets/raviola.jpeg', // Ensure this image exists
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TicketDetail1Page()),
-                        );
+                       
                       },
                     ),
                   ),

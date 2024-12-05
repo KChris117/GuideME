@@ -304,7 +304,7 @@ Future<String?> _getProfileImageUrl() async {
                             builder: (context) => const UserDetail(),
                           ),
                         );
-                      },
+                      }, 
                     ),
                     const SizedBox(height: 2),
                     const Divider(thickness: 1, color: Colors.grey),

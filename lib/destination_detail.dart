@@ -1,46 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
-class TicketDetailPage extends StatefulWidget {
-  final String ticketId;
+class DestinationDetailPage extends StatelessWidget {
+  final String destinationId;
 
-  const TicketDetailPage({super.key, required this.ticketId});
+  const DestinationDetailPage({super.key, required this.destinationId});
 
-  @override
-  _TicketDetailPageState createState() => _TicketDetailPageState();
-}
-
-class _TicketDetailPageState extends State<TicketDetailPage> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _selectedDay = DateTime.now();
-  DateTime _focusedDay = DateTime.now();
-
-  // Define holidays or big events here
-  final Map<String, String> holidays = {
-    '01-01': 'New Year\'s Day',
-    '02-10': 'Chinese New Year',
-    '03-11': 'Hari Raya Nyepi',
-    '03-29': 'Good Friday',
-    '04-10': 'Eid al-Fitr (Day 1)',
-    '04-11': 'Eid al-Fitr (Day 2)',
-    '05-01': 'Labour Day',
-    '05-09': 'Ascension of Jesus Christ',
-    '05-23': 'Waisak',
-    '06-06': 'Isra Mi\'raj',
-    '06-16': 'Eid al-Adha',
-    '07-07': 'Islamic New Year',
-    '08-17': 'Independence Day',
-    '09-15': 'The Prophet\'s Birthday',
-    '12-25': 'Christmas Day',
-  };
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Detail Ticket'),
+        title: const Text('Detail Destinasi'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -51,10 +24,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FutureBuilder<DocumentSnapshot>(
-                future: FirebaseFirestore.instance
-                    .collection('ticket_lists')
-                    .doc(widget.ticketId)  // Ganti 'ticketId' dengan 'widget.ticketId'
-                    .get(),
+                future: FirebaseFirestore.instance.collection('destination_lists').doc(destinationId).get(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -63,15 +33,15 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   }
                   if (!snapshot.hasData || !snapshot.data!.exists) {
-                    return Center(child: Text('Tiket tidak ditemukan'));
+                    return Center(child: Text('Destinasi tidak ditemukan'));
                   }
 
-                  var ticketData = snapshot.data!.data() as Map<String, dynamic>;
+                  var destinationData = snapshot.data!.data() as Map<String, dynamic>;
 
                   return StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
-                        .collection('ticket_detail')
-                        .where('ticket_id', isEqualTo: widget.ticketId)  // Ganti 'ticketId' dengan 'widget.ticketId'
+                        .collection('destination_detail')
+                        .where('destination_id', isEqualTo: destinationId)
                         .snapshots(),
                     builder: (context, detailSnapshot) {
                       if (detailSnapshot.connectionState == ConnectionState.waiting) {
@@ -91,14 +61,14 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Ticket',
+                              'Destination',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w200,
                               ),
                             ),
                             const Text(
-                              'These Are The Details of The Ticket',
+                              'These Are The Details of The Destination',
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w900,
@@ -108,7 +78,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),
                               child: Image.network(
-                                ticketData['ticket_picture'],
+                                destinationData['destination_picture'],
                                 width: double.infinity,
                                 height: 200,
                                 fit: BoxFit.cover,
@@ -136,7 +106,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          '${ticketData['ticket_name']}',
+                                          '${destinationData['destination_name']}',
                                           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
                                         ),
                                       ),
@@ -145,7 +115,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                                           Icon(Icons.star, color: Colors.black, size: 20),
                                           const SizedBox(width: 4),
                                           Text(
-                                            '${ticketData['ticket_rating']}',
+                                            '${destinationData['destination_rating']}',
                                             style: TextStyle(fontSize: 20),
                                           ),
                                         ],
@@ -154,7 +124,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    '${ticketData['ticket_location']}',
+                                    '${destinationData['destination_location']}',
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -163,7 +133,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    '${ticketData['ticket_price']}',
+                                    '${destinationData['destination_price']}',
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
@@ -172,9 +142,9 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                                   ),
                                   const SizedBox(height: 16),
                                   ExpandableDescription(
-                                    description1: detailData['ticket_description'] ?? '',
-                                    description2: detailData['ticket_description2'] ?? '',
-                                    description3: detailData['ticket_description3'] ?? '',
+                                    description1: detailData['destination_description'] ?? '',
+                                    description2: detailData['destination_description2'] ?? '',
+                                    description3: detailData['destination_description3'] ?? '',
                                   ),
                                 ],
                               ),
@@ -189,86 +159,108 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
               const SizedBox(height: 16),
 
-              const Text(
-                'Event Calendar',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 400, // Adjust the height
-                width: 400,  // Adjust the width
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 10,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: TableCalendar(
-                    firstDay: DateTime.utc(2020, 1, 1),
-                    lastDay: DateTime.utc(2030, 12, 31),
-                    focusedDay: _focusedDay,
-                    selectedDayPredicate: (day) {
-                      return isSameDay(_selectedDay, day);
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        _focusedDay = focusedDay;
-                      });
-                    },
-                    calendarFormat: _calendarFormat,
-                    onFormatChanged: (format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    },
-                    onPageChanged: (focusedDay) {
-                      _focusedDay = focusedDay;
-                    },
-                    // Menggunakan headerStyle untuk menyembunyikan format button
-                    headerStyle: HeaderStyle(
-                      formatButtonVisible: false, // Menyembunyikan tombol format
-                      titleCentered: true, // Menyusun judul di tengah
-                    ),
-                    calendarBuilders: CalendarBuilders(
-                      defaultBuilder: (context, day, focusedDay) {
-                        String dateKey =
-                            '${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}';
-                        if (holidays.containsKey(dateKey)) {
-                          return Tooltip(
-                            message: holidays[dateKey],
-                            child: Center(
-                              child: Text(
-                                '${day.day}',
-                                style: const TextStyle(color: Colors.red),
+              // Data tambahan untuk latitude dan longitude dengan peta
+              StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance.collection('destination_lists').doc(destinationId).snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.exists == false) {
+                    return const Center(child: Text('Destinasi tidak ditemukan.'));
+                  }
+
+                  var destinationData = snapshot.data!.data() as Map<String, dynamic>;
+                  String destinationName = destinationData['destination_name'] ?? 'Unknown Destination';
+
+                  return StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('destination_detail')
+                        .where('destination_id', isEqualTo: destinationId)
+                        .snapshots(),
+                    builder: (context, detailSnapshot) {
+                      if (detailSnapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (!detailSnapshot.hasData || detailSnapshot.data!.docs.isEmpty) {
+                        return const Center(child: Text(''));
+                      }
+
+                      final detailDoc = detailSnapshot.data!.docs.first;
+                      final detailData = detailDoc.data() as Map<String, dynamic>;
+
+                      final destinationLatitude = detailData['destination_latitude'] as GeoPoint?;
+                      final destinationLongitude = detailData['destination_latitude'] as GeoPoint?;
+
+                      if (destinationLatitude != null && destinationLongitude != null) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 200,
+                              child: FlutterMap(
+                                options: MapOptions(
+                                  initialCenter: LatLng(destinationLatitude.latitude, destinationLongitude.longitude),
+                                  initialZoom: 13.0,
+                                ),
+                                children: [
+                                  TileLayer(
+                                    urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                    subdomains: ['a', 'b', 'c'],
+                                  ),
+                                  MarkerLayer(
+                                    markers: [
+                                      Marker(
+                                        point: LatLng(destinationLatitude.latitude, destinationLongitude.longitude),
+                                        width: 80,
+                                        height: 80,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              color: Colors.red,
+                                              size: 50.0,
+                                            ),
+                                            SizedBox(height: 5),
+                                            Flexible(
+                                              child: Text(
+                                                destinationName, // Ganti dengan destination_name yang didapat dari snapshot
+                                                style: TextStyle(
+                                                  color: Colors.black, // Text color
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w900, // Increased text size for better readability
+                                                ),
+                                                textAlign: TextAlign.center, // Center align the text
+                                                overflow: TextOverflow.visible, // Ensures long text is visible without overflow
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        }
-                        return null;
-                      },
-                    ),
-                  )
-                ),
+                          ],
+                        );
+                      }
+                      return SizedBox.shrink();
+                    },
+                  );
+                },
               ),
-              const SizedBox(height: 20),
-            ],
+            ]
           ),
         ),
       ),
     );
   }
 }
+
 class ExpandableDescription extends StatefulWidget {
   final String description1;
   final String description2;

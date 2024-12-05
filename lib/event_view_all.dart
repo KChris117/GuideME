@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'transaction_eventdetail_1page.dart';
-import 'transaction_eventdetail_2page.dart';
+import 'transaction_eventdetail1.dart';
+import 'transaction_eventdetail2.dart';
 import 'event_view_all2.dart';
 import 'event_view_all3.dart';
 import 'event_view_all4.dart';
@@ -199,128 +198,7 @@ class _EventViewAllState extends State<EventViewAll> {
 
               const SizedBox(height: 20),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Batam RUN Neo Ocarina', 
-                    'Bengkong, Indonesia', 
-                    'assets/event/batamrun.jpg',
-                    'Rp 10.000', // Add the price here
-                    4.5 // 5-star rating
-                  )),
-
-                  const SizedBox(width: 10),
-
-                  Expanded(child: _buildPlaceCard(
-                    'Batam 10K Engku Putri', 
-                    'Batam Center, Indonesia', 
-                    'assets/event/batam10k.jpeg',
-                    'Rp 5.000', // Add the price here
-                    4.0 // 5-star rating
-                  )),
-                ],
-              ),        
-            
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Batam RUN Neo Ocarina', 
-                    'Bengkong, Indonesia', 
-                    'assets/event/batamrun.jpg',
-                    'Rp 10.000', // Add the price here
-                    4.5 // 5-star rating
-                  )),
-
-                  const SizedBox(width: 10),
-
-                  Expanded(child: _buildPlaceCard(
-                    'Batam 10K Engku Putri', 
-                    'Batam Center, Indonesia', 
-                    'assets/event/batam10k.jpeg',
-                    'Rp 5.000', // Add the price here
-                    4.0 // 5-star rating
-                  )),
-                ],
-              ),        
-            
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Batam RUN Neo Ocarina', 
-                    'Bengkong, Indonesia', 
-                    'assets/event/batamrun.jpg',
-                    'Rp 10.000', // Add the price here
-                    4.5 // 5-star rating
-                  )),
-
-                  const SizedBox(width: 10),
-
-                  Expanded(child: _buildPlaceCard(
-                    'Batam 10K Engku Putri', 
-                    'Batam Center, Indonesia', 
-                    'assets/event/batam10k.jpeg',
-                    'Rp 5.000', // Add the price here
-                    4.0 // 5-star rating
-                  )),
-                ],
-              ),        
-            
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Batam RUN Neo Ocarina', 
-                    'Bengkong, Indonesia', 
-                    'assets/event/batamrun.jpg',
-                    'Rp 10.000', // Add the price here
-                    4.5 // 5-star rating
-                  )),
-
-                  const SizedBox(width: 10),
-
-                  Expanded(child: _buildPlaceCard(
-                    'Batam 10K Engku Putri', 
-                    'Batam Center, Indonesia', 
-                    'assets/event/batam10k.jpeg',
-                    'Rp 5.000', // Add the price here
-                    4.0 // 5-star rating
-                  )),
-                ],
-              ),        
-            
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Batam RUN Neo Ocarina', 
-                    'Bengkong, Indonesia', 
-                    'assets/event/batamrun.jpg',
-                    'Rp 10.000', // Add the price here
-                    4.5 // 5-star rating
-                  )),
-
-                  const SizedBox(width: 10),
-
-                  Expanded(child: _buildPlaceCard(
-                    'Batam 10K Engku Putri', 
-                    'Batam Center, Indonesia', 
-                    'assets/event/batam10k.jpeg',
-                    'Rp 5.000', // Add the price here
-                    4.0 // 5-star rating
-                  )),
-                ],
-              ),        
+              
             
               const SizedBox(height: 40),
 

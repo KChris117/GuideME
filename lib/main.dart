@@ -13,7 +13,6 @@ import 'login.dart' as login;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Inisialisasi Firebase dengan FirebaseOptions untuk platform web
   if (Firebase.apps.isEmpty) {
     if (kIsWeb) {
       const firebaseConfig = FirebaseOptions(
@@ -45,12 +44,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      initialRoute: '/splash',
+      initialRoute: '/',
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/': (context) => const MyHomePage(),
         '/ticket': (context) => const TicketPage(),
-        '/search': (context) => const SearchPage(),
         '/gallery': (context) => const GalleryPage(),
         '/profile': (context) => const profile.ProfilePage(),
         '/login': (context) => const login.LoginPage(),

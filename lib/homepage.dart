@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'detail_page1.dart';
-import 'detail_page2.dart';
-import 'event_detail1.dart';
-import 'event_detail2.dart';
-import 'transaction_detail_1page.dart';
-import 'transaction_detail_2page.dart';
-import 'transaction_eventdetail_1page.dart';
-import 'transaction_eventdetail_2page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'destination_detail.dart';
 import 'destinations_view_all.dart';
 import 'event_view_all.dart';
 
@@ -18,14 +12,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0; // Track the selected index for BottomNavigationBar
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
-    // Add navigation logic or other actions here based on index
     switch (index) {
       case 0:
         // Navigate to Home
@@ -109,7 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushReplacementNamed(context, '/profile');
               },
             ),
-
           ],
         ),
       ),
@@ -146,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: BorderRadius.circular(30.0),
                       child: ColorFiltered(
                         colorFilter: ColorFilter.mode(
-                          Colors.grey.withOpacity(1), // Adjust the opacity to make the image darker
+                          Colors.grey.withOpacity(1),
                           BlendMode.multiply,
                           ),
                       child: Image.asset(
@@ -188,10 +180,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               
-              const SizedBox(height: 10), // Space between rows
+              const SizedBox(height: 10),
 
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -203,14 +195,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     MouseRegion(
-                      cursor: SystemMouseCursors.click, // Change cursor to finger pointer
+                      cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-                          // Navigate to see_all.dart page when "See More" is clicked
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const DestinationsViewAll(), // Route to the see_all.dart page
+                              builder: (context) => const DestinationsViewAll(),
                             ),
                           );
                         },
@@ -219,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black, // Text color
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -228,34 +219,85 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
 
-              const SizedBox(height: 10), // Space between rows
+              const SizedBox(height: 10),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Tumenggung Abdul Jamal', 
-                    'Bulau Lintang, Batam, Indonesia', 
-                    'assets/place_pictures/makam_abdul_jamal.jpg',
-                    'Rp 50.000',
-                    4.8 // 5-star rating
-                     // Add the price here
-                  )),
-                  const SizedBox(width: 10),
-                  Expanded(child: _buildPlaceCard(
-                    'Taman Miniature House Indonesia', 
-                    'Bengkong, Batam, Indonesia', 
-                    'assets/place_pictures/miniatur_house.jpeg',
-                    'Rp 200.000', // Add the price here\
-                    4.3 // 5-star rating
-                  )),
-                ],
-              ),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                  .collection('destination_lists')
+                  .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text('No destinations found.'));
+                  }
+
+                  final destinations = snapshot.data!.docs;
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: (destinations.length / 2).ceil(),
+                    itemBuilder: (context, index) {
+                      final firstDestination = destinations[index * 2];
+                      final destinationId1 = firstDestination['destination_id'] ?? 'N/A';
+                      final destinationName1 = firstDestination['destination_name'] ?? 'N/A';
+                      final destinationLocation1 = firstDestination['destination_location'] ?? 'N/A';
+                      final destinationPicture1 = firstDestination['destination_picture'] ?? '';
+                      final destinationRating1 = double.tryParse(firstDestination['destination_rating'].toString()) ?? 0.0;
+                      final destinationPrice1 = firstDestination['destination_price'] ?? 'N/A';
+
+                      // Cek jika ada item kedua dalam pasangan
+                      final secondDestination = index * 2 + 1 < destinations.length ? destinations[index * 2 + 1] : null;
+                      final destinationId2 = secondDestination?['destination_id'] ?? 'N/A';
+                      final destinationName2 = secondDestination?['destination_name'] ?? 'N/A';
+                      final destinationLocation2 = secondDestination?['destination_location'] ?? 'N/A';
+                      final destinationPicture2 = secondDestination?['destination_picture'] ?? '';
+                      final destinationRating2 = secondDestination != null
+                          ? double.tryParse(secondDestination['destination_rating'].toString()) ?? 0.0
+                          : 0.0;
+                      final destinationPrice2 = secondDestination?['destination_price'] ?? 'N/A';
+
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: buildPlaceCard(
+                              destinationName: destinationName1,
+                              destinationLocation: destinationLocation1,
+                              destinationPicture: destinationPicture1,
+                              destinationRating: destinationRating1,
+                              destinationPrice: destinationPrice1,
+                              destinationId: destinationId1,
+                            ),
+                          ),
+                          
+                          const SizedBox(width: 10),
+                          
+                          if (secondDestination != null)
+                            Expanded(
+                              child: buildPlaceCard(
+                                destinationName: destinationName2,
+                                destinationLocation: destinationLocation2,
+                                destinationPicture: destinationPicture2,
+                                destinationRating: destinationRating2,
+                                destinationPrice: destinationPrice2,
+                                destinationId: destinationId2,
+                                
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
 
               const SizedBox(height: 40),
 
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0), // Memberikan jarak vertikal
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -267,14 +309,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     MouseRegion(
-                      cursor: SystemMouseCursors.click, // Change cursor to finger pointer
+                      cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-                          // Navigate to see_all.dart page when "See More" is clicked
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const EventViewAll(), // Route to the see_all.dart page
+                              builder: (context) => const EventViewAll(),
                             ),
                           );
                         },
@@ -283,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black, // Text color
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -292,52 +333,98 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
 
-              const SizedBox(height: 10), // Space between rows
+              const SizedBox(height: 10),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: _buildPlaceCard(
-                    'Batam RUN Neo Ocarina', 
-                    'Bengkong, Batam, Indonesia', 
-                    'assets/event/batamrun.jpg',
-                    'Rp 5.000', // Add the price here
-                    4.5 // 5-star rating
-                  )),
-                  const SizedBox(width: 10),
-                  Expanded(child: _buildPlaceCard(
-                    'Batam 10K Engku Putri', 
-                    'Batam Center, Batam, Indonesia', 
-                    'assets/event/batam10k.jpeg',
-                    'Rp 150.000', // Add the price here
-                    4.0 // 5-star rating
-                  )),
-                ],
-              ),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                  .collection('event_lists')
+                  .limit(2)
+                  .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
 
-              const SizedBox(height: 40), // Space between rows
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text('No Event found.'));
+                  }
+
+                  final destinations = snapshot.data!.docs;
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: (destinations.length / 2).ceil(),
+                    itemBuilder: (context, index) {
+                      final firstEvent = destinations[index * 2];
+                      final eventName1 = firstEvent['event_name'] ?? 'N/A';
+                      final eventLocation1 = firstEvent['event_location'] ?? 'N/A';
+                      final eventPicture1 = firstEvent['event_picture'] ?? '';
+                      final eventRating1 = double.tryParse(firstEvent['event_rating'].toString()) ?? 0.0;
+                      final eventPrice1 = firstEvent['event_price'] ?? 'N/A';
+
+                      // Cek jika ada item kedua dalam pasangan
+                      final secondEvent = index * 2 + 1 < destinations.length ? destinations[index * 2 + 1] : null;
+                      final eventName2 = secondEvent?['event_name'] ?? 'N/A';
+                      final eventLocation2 = secondEvent?['event_location'] ?? 'N/A';
+                      final eventPicture2 = secondEvent?['event_picture'] ?? '';
+                      final eventRating2 = secondEvent != null
+                          ? double.tryParse(secondEvent['event_rating'].toString()) ?? 0.0
+                          : 0.0;
+                      final eventPrice2 = secondEvent?['event_price'] ?? 'N/A';
+
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: buildEventCard(
+                              eventName: eventName1,
+                              eventLocation: eventLocation1,
+                              eventPicture: eventPicture1,
+                              eventRating: eventRating1,
+                              eventPrice: eventPrice1,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          if (secondEvent != null)
+                            Expanded(
+                              child: buildEventCard(
+                                eventName: eventName2,
+                                eventLocation: eventLocation2,
+                                eventPicture: eventPicture2,
+                                eventRating: eventRating2,
+                                eventPrice: eventPrice2,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+
+              const SizedBox(height: 40),
               Center(
                 child: Container(
-                  width: double.infinity, // Make the container take up full width
-                  padding: const EdgeInsets.symmetric(vertical: 16.0), // Adjust vertical padding as needed
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: const Column(
-                    mainAxisSize: MainAxisSize.min, // Keep the column as small as its children
+                    mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       'Guide Me',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black, // Black text for contrast
+                        color: Colors.black
                     ),
                   ),
-                    SizedBox(height: 10), // Spacing between the texts
+                    SizedBox(height: 10),
                     Text(
                       'Made by PBL-IF-12',
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black, // Black text for contrast
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -383,177 +470,256 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-/// Helper function to build one star with rating number
 Widget _buildStarsWithRating(double rating) {
   return Row(
     children: [
-      // Display the rating number (e.g., 4.5, 5.0)
       Text(
-        rating.toStringAsFixed(1), // Format rating to 1 decimal
+        rating.toStringAsFixed(1),
         style: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
-          color: Colors.black, // Rating text color
+          color: Colors.black,
         ),
       ),
-      const SizedBox(width: 4), // Add some space between number and the star
-      // Display only one black star
+      const SizedBox(width: 4),
+
       const Icon(Icons.star, color: Colors.black, size: 15),
     ],
   );
 }
 
   // Helper method to build place cards
-Widget _buildPlaceCard(String title, String description, String imagePath, String price, double rating) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start, // Align column contents to the left
-    children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(15.0), // Rounded corners for the white box
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Align column contents to the left
+Widget buildPlaceCard({
+  required String destinationName,
+  required String destinationLocation,
+  required String destinationPicture,
+  required String destinationPrice,
+  required double destinationRating,
+  required String destinationId,
+}) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8.0),
+    padding: const EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          blurRadius: 8.0,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(
+            destinationPicture,
+            width: double.infinity,
+            height: 150,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                imagePath,
-                width: double.infinity,
-                height: 150,
-                fit: BoxFit.cover,
+            Flexible(
+              child: Text(
+                destinationName,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                maxLines: 1,
               ),
             ),
-            const SizedBox(height: 8),
-            // Align the title text to the left and show stars next to it
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
+            const SizedBox(width: 10),
+            _buildStarsWithRating(destinationRating),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          destinationLocation,
+          textAlign: TextAlign.left,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        const SizedBox(height: 15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                child: Center(
                   child: Text(
-                    title,
+                    destinationPrice, 
                     style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      color: Colors.grey, 
+                      fontSize: 12,
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
-                // Star rating with rating number next to the title
-                _buildStarsWithRating(rating),
-              ],
+              ),
             ),
             const SizedBox(height: 8),
-            // Add description text below the title and above the stars
-            Text(
-              description,
-              textAlign: TextAlign.left, // Align text to the left
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
+            MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DestinationDetailPage(destinationId: destinationId),
+                ),
+              );
+            },
+            child: Container(
+              width: 50,
+              height: 20,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: const Center(
+                child: Text(
+                  'View',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
         ),
-      ),
+      ],
+    ),
+  );
+}
 
-      const SizedBox(height: 15),
+Widget buildEventCard({
+  required String eventName,
+  required String eventLocation,
+  required String eventPicture,
+  required String eventPrice,
+  required double eventRating,
+}) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8.0),
+    padding: const EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          blurRadius: 8.0,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start, 
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(
+            eventPicture,
+            width: double.infinity,
+            height: 150,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(height: 8),
 
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // MouseRegion for 'Price' with finger pointer cursor
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                // Navigate based on price and title
-                if (price == 'Rp 50.000' && title == 'Tumenggung Abdul Jamal') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TransactionDetail1Page()),
-                  );
-                } else if (price == 'Rp 200.000' && title == 'Taman Miniature House Indonesia') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TransactionDetail2Page()),
-                  );
-                } else if (price == 'Rp 5.000' && title == 'Batam RUN Neo Ocarina') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TransactionEventDetail1Page()),
-                  );
-                } else if (price == 'Rp 150.000' && title == 'Batam 10K Engku Putri') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TransactionEventDetail2Page()),
-                  );
-                }
-              },
-              child: Center(
-                child: Text(
-                  price, // Only price will be clickable
-                  style: const TextStyle(
-                    color: Colors.grey, // Text color
-                    fontSize: 12, // Text size
-                  ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Text(
+                eventName,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  overflow: TextOverflow.ellipsis,
                 ),
+                maxLines: 1,
               ),
             ),
+            const SizedBox(width: 10),
+
+            _buildStarsWithRating(eventRating),
+          ],
+        ),
+        const SizedBox(height: 8),
+
+        Text(
+          eventLocation,
+          textAlign: TextAlign.left,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
           ),
+        ),
 
-          const SizedBox(height: 8),
+        const SizedBox(height: 15),
 
-          // MouseRegion for 'Transaction Detail' button with finger pointer cursor
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                if (title == 'Tumenggung Abdul Jamal') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Detail1Page()),
-                  );
-                } else if (title == 'Taman Miniature House Indonesia') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Detail2Page()),
-                  );
-                }
-                if (title == 'Batam RUN Neo Ocarina') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Event1Page()),
-                  );
-                } else if (title == 'Batam 10K Engku Putri') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Event2Page()),
-                  );
-                }
-              },
-              child: Container(
-                width: 50,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                child: const Center(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                child: Center(
                   child: Text(
-                    'View',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
+                    eventPrice,
+                    style: const TextStyle(
+                      color: Colors.grey, 
+                      fontSize: 12,
                     ),
                   ),
-
                 ),
               ),
             ),
-          ),
 
-        ],
-      ),
-    ],
-);
+            const SizedBox(height: 8),
+
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                child: Container(
+                  width: 50,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'View',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }
 }

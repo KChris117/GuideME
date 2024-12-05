@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-class Detail1Page extends StatefulWidget {
-  const Detail1Page({super.key});
+class DestinationDetail2 extends StatefulWidget {
+  const DestinationDetail2({super.key});
 
   @override
-  Detail1PageState createState() => Detail1PageState();
+  DestinationDetail2State createState() => DestinationDetail2State();
 }
 
-class Detail1PageState extends State<Detail1Page> {
+class DestinationDetail2State extends State<DestinationDetail2> {
   bool _isExpanded = false;
   final MapController _mapController = MapController(); // Add map controller
-  final double _latitude = 1.0203966;  // Latitude for location
-  final double _longitude = 103.8803177;  // Longitude for location
+  final double _latitude = 1.08333;  // Latitude for location
+  final double _longitude = 104.05;  // Longitude for location
 
   // New map widget function
   Widget displayMap() {
@@ -33,7 +33,7 @@ class Detail1PageState extends State<Detail1Page> {
           const MarkerLayer(
             markers: [
               Marker(
-                point: LatLng(1.0203966, 103.8803177),
+                point: LatLng(1.08333, 104.05),
                 width: 80,
                 height: 80,
                 child: Column(
@@ -49,7 +49,7 @@ class Detail1PageState extends State<Detail1Page> {
                     // Adds some space between the icon and text
                     Flexible(
                       child: Text(
-                        'Makam Tumenggung Abdul Jamal', // Your custom text
+                        'Miniature House Indonesia', // Your custom text
                         style: TextStyle(
                           color: Colors.black, // Text color
                           fontSize: 12,
@@ -109,7 +109,7 @@ class Detail1PageState extends State<Detail1Page> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.0),
                 child: Image.asset(
-                  'assets/place_pictures/makam_abdul_jamal.jpg',
+                  'assets/place_pictures/miniatur_house.jpeg',
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.cover,
@@ -140,7 +140,7 @@ class Detail1PageState extends State<Detail1Page> {
                       children: [
                         Flexible(
                           child: Text(
-                            'Makam Tumenggung Abdul Jamal',
+                            'Miniature House Indonesia',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w900,
@@ -158,7 +158,7 @@ class Detail1PageState extends State<Detail1Page> {
                             ),
                             const SizedBox(width: 5),
                             Text(
-                              '4.8',
+                              '4.3',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w900,
@@ -172,7 +172,7 @@ class Detail1PageState extends State<Detail1Page> {
                     const SizedBox(height: 8),
 
                     const Text(
-                      'Bulau Lintang, Batam, Indonesia',
+                      'Bengkong, Batam, Indonesia',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -183,7 +183,7 @@ class Detail1PageState extends State<Detail1Page> {
                     const SizedBox(height: 8),
 
                     const Text(
-                      'Rp 50.000',
+                      'Rp 200.000',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -193,7 +193,7 @@ class Detail1PageState extends State<Detail1Page> {
                     const SizedBox(height: 30),
 
                     const Text(
-                      'Nama Temunggung Abdul Jamal sudah tidak asing di telinga masyarakat Kota Batam. Tumenggung Abdul Jamal adalah nama kawasan Gelanggang Olahraha (Gelora) di Kecamatan Sungai Beduk, Batam, Kepulauan Riau (Kepri).',
+                      'Miniature House Indonesia menjadi salah satu destinasi wisata edukasi yang patut dikunjungi di Kota Batam, Kepulauan Riau. Terletak di Golden City Bengkong Laut, Bengkong, taman ini menawarkan pengalaman unik bagi pengunjung untuk menjelajahi miniatur rumah adat dari 26 provinsi di Indonesia, mulai dari Sabang hingga Merauke',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -204,7 +204,7 @@ class Detail1PageState extends State<Detail1Page> {
 
                     if (_isExpanded)
                       const Text(
-                        'Meski banyak dikenal, tapi masyarakat tidak banyak yang tahu tentang sejarah Tumenggung Abdul Jamal. Mungkin masyarakat hanya sebatas tahu bahwa Tumenggug Abdul Jamal adalah seorang bendahara Kerajaan Melayu Riau yang berkuasa di wilayah Bulang Lintang, Kecamatan Bulang, Batam, dan di pulau-pulau di sekitarnya.',
+                        'Selain rumah adat, pengunjung juga dapat melihat miniatur tempat ibadah dari berbagai agama yang ada di Indonesia. Setiap miniatur rumah adat dibangun dengan ukuran mini dan dicat dengan warna-warni yang menarik perhatian. Di depan setiap miniatur, terdapat papan informasi yang menyebutkan nama rumah adat dan asal provinsinya, sehingga pengunjung dapat meningkatkan pengetahuan dan memperluas wawasan mereka tentang arsitektur nusantara',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -215,7 +215,7 @@ class Detail1PageState extends State<Detail1Page> {
 
                     if (_isExpanded)
                       const Text(
-                        'Makam Tumenggung Abdul Jamal masih bisa dijumpai di Selatan Pulau Batam. Di kawasan tersebut juga terdapat beberapa makam lain yang diyakini sebagai keluarga Tumenggung Abdul Jamal. Antara lain istrinya raja Maimunah. Masyarakat juga masih bisa melihat beberapa benda pusaka seperti keris, pedang, tombak, bejana dan barang lain milik Tumenggung Abdul Jamal.',
+                        'Taman ini menjadi tempat yang ramai dikunjungi terutama pada akhir pekan. Pengunjung dapat melakukan piknik, berfoto di depan miniatur rumah adat, atau sekadar berjalan-jalan sambil mengamati detail miniatur rumah adat tersebut. Suasana taman yang teduh dan berangin karena dikelilingi banyak pepohonan menambah kenyamanan pengunjung saat berada di Miniature House Indonesia.',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
